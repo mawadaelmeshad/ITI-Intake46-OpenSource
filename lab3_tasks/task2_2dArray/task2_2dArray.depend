@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1760955378 source:d:\iti\labs\lab3_tasks\task2_2darray\main.cpp
+	<iostream>
+	<windows.h>
+

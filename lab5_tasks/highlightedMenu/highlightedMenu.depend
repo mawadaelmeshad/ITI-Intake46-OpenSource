@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1761129024 source:d:\iti\labs\lab5_tasks\highlightedmenu\main.cpp
+	<iostream>
+	<windows.h>
+	<conio.h>
+	<cstring>
+

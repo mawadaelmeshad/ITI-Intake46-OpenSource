@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1761041126 source:d:\iti\labs\lab4_tasks\structstudent\main.cpp
+	<iostream>
+	<cstring>
+

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1761226212 source:d:\iti\labs\lab6_tasks\bankaccclass\main.cpp
+	<iostream>
+	<cstring>
+
