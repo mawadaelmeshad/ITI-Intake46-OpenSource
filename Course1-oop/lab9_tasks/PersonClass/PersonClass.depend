@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1761554460 source:d:\iti\labs\course1-oop\lab9_tasks\personclass\main.cpp
+	<iostream>
+	<cstring>
+
