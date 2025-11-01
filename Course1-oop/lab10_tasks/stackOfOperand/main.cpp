@@ -132,7 +132,6 @@ int main()
     char* number="1+3*2+(5-1)";
     StackOperators st1;
     StackOperands st2;
-    int res;
      for(int i=0;number[i]!='\0';i++){
         if(isdigit(number[i])){
            double num=0;
@@ -171,7 +170,6 @@ int main()
         processOperator(st2, st1);
     }
 
-    // The final result is the only element left in operands stack
     double result = st2.pop();
     cout << "\nResult: " << result << endl;
 
