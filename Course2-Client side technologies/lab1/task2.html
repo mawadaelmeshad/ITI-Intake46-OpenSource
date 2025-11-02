@@ -1,0 +1,33 @@
+<html>
+<head>
+<title> task 2</title>
+</head>
+<body>
+<pre>
+<h2>A simple C program:</h2>
+
+#include&lt;stdio.h&gt;
+#include&lt;conio.h&gt;
+int exp (int base, int power)
+{
+	if (power==0){
+		return 1;
+	}
+
+	else{
+		power--;
+		return base*exp(base,power);
+	}
+}
+
+main ()
+{
+
+	int x=2 , y=3 ;
+	clrscr () ;
+	printf("\n &incare;d ^ &incare;d = &incare;d", x, y, exp (x, y) ) ;
+	getch () ; return 0;
+}
+</pre>
+</body>
+</html>
