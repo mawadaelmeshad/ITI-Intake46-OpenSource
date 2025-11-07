@@ -1,0 +1,196 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+.Navbar{
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+ul{
+    list-style: none;
+}
+
+.navList li{
+    display: inline-block;
+}
+ul .search input{
+    border:none;
+    border-bottom: 2px solid black ;
+}
+ul select{
+    border:none;
+    border-bottom: 2px solid black ;
+}
+.secondUl{
+    list-style: none;
+    margin: auto;
+    text-align: center;
+    margin-top: 16px;
+
+}
+.secondUl li,.storeUl li{
+    display: inline-block;
+
+}
+.secondUl li:hover, .secondUl li select:hover{
+    border-bottom: 3px solid red;
+    cursor: pointer;
+    color: red !important;
+
+}
+.secondUl select{
+    border-bottom: none;
+}
+.storeUl{
+    color: gray;
+}
+.smallImages img{
+    width: 90px;
+    margin-left: 24px;
+    margin-top: 4px;
+}
+.second-col{
+    width: 100%;
+}
+.second-col p{
+    font-size: 12px;
+    color: gray;
+    font-weight: 100;
+}
+.second-col button{
+    padding: 12px 32px;
+    width: 80%;
+    font-weight: bold;
+    background-color: #e60012;
+    border: none;
+    color: white;
+}
+
+.second{
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+}
+.second p{
+    margin-top: -70px;
+    line-height: 1.2;
+    color: gray;
+    font-size: 12px;
+}
+
+.second button{
+    border: none;
+    color: red;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+.second h2{
+    color: gray;
+    font-size: 20px;
+    text-align: center;
+}
+
+
+
+.second .rating{
+    padding: 10px 100px;
+}
+
+
+.second .playmoods{
+    padding: 10px 100px;
+
+}
+
+.rating span{
+    font-size: 10px;
+}
+
+
+.playmoods .moods td{
+    padding: 20px;
+    background-color: #0b2b6b;
+}
+
+.date{
+    margin: auto;
+    width:70%;
+    border-collapse: collapse;
+    color: gray;
+    font-size: 15px;
+    border-top: 1px solid #eaeaea;
+    margin-top: 8px;
+    margin-bottom: 80px;
+}
+.date tr td{
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 16px;
+        padding-top: 16px;
+
+}
+.card{
+    border: 1px solid gray;
+    padding: 18px;
+    margin-right: 48px;
+
+}
+
+.card .title {
+    margin: 8px 0 4px;
+    font-size: 18px;
+    margin-bottom: 44px;
+}
+
+.card .price {
+    margin: 0 0 8px;
+    padding-top: 20px;
+    font-size: 15px;
+    color: #434242;
+    font-weight: bold;
+}
+
+.card .switch {
+    margin: 0;
+    color: gray;
+    font-size: 18px;
+    border-bottom: 2px solid red;
+    width: fit-content;
+    padding-bottom: 2px;
+    font-weight: lighter;
+}
+.card .heart{
+    display: inline-block;
+}
+.last{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.last th{
+    color: gray;
+    text-align: left;
+
+}
+.last tr td{
+    text-align: left;
+    color: red;
+    padding-top: 12px;
+}
+.last tr td, .last tr th{
+        padding-left: 20px;
+        border-right: 2px solid #eaeaea;
+
+}
+.footerUl li{
+    padding-top: 40px;
+    display: inline-block;
+    font-size: 12px;
+    padding-right: 10px;
+}
+#firstLi{
+    margin-right: 40px;
+    color: #efefef;
+    font-weight: lighter;
+}
