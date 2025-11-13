@@ -1,6 +1,7 @@
 // console.log(number1);
 // console.log(number2);
 // console.log(number3);
+"use strict";
 
 var number1=3,number2=2.9,number3=0xff;
 console.log(number1);
