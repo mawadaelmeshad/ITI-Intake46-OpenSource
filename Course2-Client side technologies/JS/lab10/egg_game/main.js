@@ -4,7 +4,6 @@ let score = 0;
 document.querySelector("p").innerText+=" "+score;
 
 let id;
-// let egg = document.querySelector('.egg');
 let basket = document.querySelector("#basket");
 
 
@@ -19,6 +18,7 @@ class Egg {
         this.element.style.top = `${this.moveVer}px`;
         this.element.style.left = `${this.moveHor}px`;
         this.isBroken = false;
+        this.countBroken=0;
 
         document.body.appendChild(this.element);
     }
@@ -26,6 +26,12 @@ class Egg {
         if(this.moveVer>=window.innerHeight-this.element.height){
             this.element.src="../images/Uovo_sorridente.png";
             this.isBroken = true;
+            this.countBroken++;
+            console.log(this.countBroken);
+            if(this.countBroken==5){
+                alert("Game Over :(");
+                this.reset();
+            }
             setTimeout(()=>{
                 this.reset();
             },1000);
@@ -79,23 +85,25 @@ class Egg {
 
 };
 
+let numEggs;
 let eggs= [];
-let numEggs=1;
 const initializeEggs = () =>{
+    eggs= [];
+    numEggs=1;
     for(let i=0;i<numEggs;i++){
         eggs.push(new Egg());
     }
 
 }
 
-const startGame = () => {
+document.querySelector("button").addEventListener("click",  function(){
     initializeEggs();
     id = setInterval(()=>{
     eggs.forEach((egg,index)=>{
         egg.fall();
     })
 },100);
-
+},{once: true});
 let left=0;
 
 document.addEventListener("keydown" , function(event){
@@ -116,7 +124,6 @@ document.addEventListener("keydown" , function(event){
         
     }
 });
-}
 
 function AddMoreEggs(){
     numEggs++;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            align-items: center;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+
+        }
+        div{
+            width: 400px;
+            height: 600px;
+            border: 4px solid black;
+        }
+        div input{
+            margin: 20px;
+            border: 2px solid gray;
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+        button{
+            padding : 12px 24px;
+            background-color: pink;
+            border: none;
+            border-radius: 20px;
+        }
+        .region{
+            color: gray;
+        }
+        img{
+            width: 100%;
+        }
+        p, h2{
+            padding-left: 12px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="enter">
+        <input type="text" placeholder="Enter the country name"/>
+        <button type="submit" onclick="createCard()">Submit</button>
+    </div>
+
+    <script src="main.js"></script>
+    
+</body>
+</html>

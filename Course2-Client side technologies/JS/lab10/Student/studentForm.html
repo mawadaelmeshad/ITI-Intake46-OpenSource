@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-  
-<style>
+    <link rel="stylesheet" href="./student.css"/>
+    <style>
         body {
             margin: 70px 300px;
             font-family: Andalus;
@@ -21,7 +21,7 @@
             width: 400px;
         
         }
-        span{ color:red;display: none}
+        span{ color:red;display: none ; font-size: 15px;}
         .pinkBG {
             background-color: lightpink;
         }
@@ -40,7 +40,6 @@
     
 </head>
 <body>
- 
     <form>
         <table>
             <tr>
@@ -51,19 +50,28 @@
                     <input type="radio" name="Department" value="EL" />EL
                 </td>
             </tr>
-            <tr><td>StudentName<input type="text" name="studentName" value="Eman" /></td><td><span id="nameError">Required</span></td></tr>
-            <tr><td>StudentGrade<input type="number" name="studentGrade" value="50" /></td><td><span id="gardeError">should be number</span></td></tr>
+            <tr><td>StudentName<input type="text" name="studentName" value="Eman" /></td><td><span id="nameError">Required and should be unique</span></td></tr>
+            <tr><td>StudentGrade<input type="number" name="studentGrade" value="50" /></td><td><span id="gardeError">should be number between 0 and 100</span></td></tr>
             
 			<tr><td><input type="button"  value="Add" /></td></tr>
             <tr><td>Search<input type="text" name="searchTxt"  /></td><td><span id="gardeError">should be number</span></td></tr>
-           
             <tr>
                 <td colspan="2">
                     Filter:
-                    <select>
+                    <select id="filter">
                         <option value="all">All</option>
                         <option value="success">Success</option>
-                        <option value="fail">Fail`</option>
+                        <option value="fail">Fail</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    sort:
+                    <select id="sort">
+                        <option value="all">All</option>
+                        <option value="name">Name</option>
+                        <option value="grade">Grade</option>
                     </select>
                 </td>
             </tr>
@@ -72,10 +80,5 @@
             <table id="studentsData">
 
             </table>           
-             
-            
-
-
-
 </body>
 </html>
