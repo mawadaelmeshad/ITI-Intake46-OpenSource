@@ -89,3 +89,26 @@ select concat(Fname,' ',Lname) as Name, Salary from Employee where Sex = 'F';
 select DNum, Dname from Department where MGRSSN = '968574';
 select pnumber, pname , plocation from Project where Dnum=10;
 
+-- lab-3
+select d.Dnum, d.Dname , concat(e.Fname,' ', e.Lname) from department d 
+left join Employee e on d.MGRSSN = e.ssn; 
+
+select d.Dnum, d.Dname from department d where d.Dnum in(select Dnum from project p);
+select d.ESSN, e.Fname , e.Lname, d.Sex, d.Bdate from Dependent d join employee e on d.ESSN = e.SSN;
+select * from employee e where e.SSN in ( select MGRSSN from department );
+select p.Pnumber, p.Pname , p.Plocation from project p where p.City in ('Cairo','Alex');
+select * from project p where p.Pname like 'A%'; 
+select * from project;
+select * from employee;
+select * from employee e where e.Dno =30 and e.salary between 1000 and 2000;
+select * from project;
+select e.Fname, e.Lname from employee e , works_for w, Project P where e.SSN = w.ESSN and w.Pno = p.Pnumber and p.Pname = 'AL Solimaniah' and w.Hours>=10;
+select e.Fname , e.Lname from employee e where e.superssn = '223344';
+select p.Pname, sum(w.Hours) as 'Total hours' from project p, works_for w where p.Pnumber = w.Pno group by p.Pname; 
+select e.Lname from employee e where e.SSN in (select MGRSSN from department where MGRSSN is not null) and
+e.SSN not in (select ESSN from dependent);
+select * from dependent;
+select * from department d where MGRSSN = (select min(MGRSSN) from department);
+select e.fname , p.Pname 
+from employee e,project p , works_for w
+where  w.Pno = p.Pnumber and  p.Pname is not null and e.essn=w.essn;
