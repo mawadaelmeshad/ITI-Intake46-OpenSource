@@ -1,0 +1,24 @@
+1NF
+
+Customer table : Customer_no (PK) , CName
+Customer_rent table : Customer_no(FK), Property_no, PAddress , RentStart , RentFinish, Rent, Owner_no, oName
+
+primary key (customer_no, property_no, RentStart)
+
+
+2NF
+
+Customer table : remains the same
+property table : property_no(PK), PAddress , Owner_no  , OName
+Rent table : customer_no(fk), property_no(fk), RentStart, RentFinish, Rent
+
+primary key for rent table (customer_no , property_no , RentStart)
+
+3NF
+Customer table : remains the same
+Owner table : Customer_no(pk), Cname
+property table : Property_no(PK), PAddress , Owner_no(FK),
+Rent table : remains the same
+
+
+
