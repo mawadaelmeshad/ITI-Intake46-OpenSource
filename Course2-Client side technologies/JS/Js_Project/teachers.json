@@ -1,0 +1,20 @@
+{
+    "teachers":[
+        {
+            "username" : "ahmed",
+            "password" : "123456",
+            "course" : "JS"
+        },
+        {
+            "username" : "aliaa",
+            "password" : "123456",
+            "course" : "Css"
+        },
+        {
+            "username" : "mohamed",
+            "password" : "123456",
+            "course" : "Html"
+        }     
+    ]
+
+}

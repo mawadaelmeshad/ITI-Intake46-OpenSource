@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&display=swap');
+body{
+    background-color: rgb(201, 138, 239);
+    font-family: "Geom", sans-serif;
+}
+.auth-form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    min-height: 700px;
+    margin: auto;
+    background-color: white;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+.input-wrapper{
+    text-align: left;
+    width: 80%;
+}
+h2{
+    font-weight: bolder;
+    font-size: 20px;
+    margin-bottom: 20px;
+
+}
+form input{
+    border: none;
+    width: 100%;
+    padding-left: 2px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    background-color: transparent;
+}
+form p{
+    display: none;
+    margin-bottom: 4px;
+}
+form select{
+    background-color: transparent;
+    margin-bottom: 6px;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.addExam {
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh; /* Maximum height */
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.addExam form {
+    overflow-y: auto; 
+    max-height: calc(90vh - 60px);
+}
+
+/* Custom scrollbar */
+.addExam form::-webkit-scrollbar {
+    width: 8px;
+}
+td{
+    border: 1px solid #4c1d95;
+    padding: 10px;
+}
+textarea{
+    background-color: transparent;
+}
+.li-exams{
+    display: flex;
+    flex-direction: row;
+    margin-top: 4px;
+}
+.btn-start{
+    padding: 4px 32px;
+    border-radius: 16px;
+    margin-left: 8px;
+    background-color: #4c1d95;
+    color: white;
+}
+.question-card{
+    padding: 8px;
+    border-radius: 12px;
+    min-height: 200px;
+    min-width: 200px;
+}
+.timer-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.timer-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #3b82f6);
+    transition: width 0.1s linear;
+}
+
+.choice-btn {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 2px solid #e5e7eb;
+    border-radius: 2rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.choice-btn:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: #9333ea;
+}
+
+.choice-btn:disabled {
+    cursor: not-allowed;
+}
+
+.next-btn {
+    background-color: #9333ea;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+
+.next-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #9333ea;
+}
+
+.exam-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.timer-display {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #9333ea;
+    background: #f3f4f6;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+}

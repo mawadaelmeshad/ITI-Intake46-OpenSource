@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+
+    <title>Regsiter</title>
+</head>
+<body>
+    <!-- registeration form  -->
+    <div>
+        <img src="./Images/flower.gif" alt="flower" width="300px" class="absolute bottom-0"/>
+        <form class="auth-form">
+            <h2>Registeration form</h2>  
+            <div class="input-wrapper">
+                <input type="text" placeholder="Enter your username" id="username"/>
+                <p id="errorName" class="text-left text-sm text-red-500">Username is required</p>
+            </div>
+            
+            <div class="input-wrapper">
+                <input type="password" id="pass" placeholder="Enter your password"/>
+                <p id="errorPass" class="text-left text-sm text-red-500">Password is required and must be longer than 5 chars</p>
+            </div>
+            
+            <div class="input-wrapper">
+                <input type="number" id="grade" placeholder="Enter your grade"/>
+                <p id="errorGrade" class="text-left text-sm text-red-500">Grade is required and must be between 1 and 3</p>
+            </div>
+            
+            <div class="input-wrapper">
+                <input type="text" id="phone" placeholder="Enter your phoneNumber"/>
+                <p id="errorPhone" class="text-left text-sm text-red-500">Phone number is required and must be 11 numbers</p>
+            </div>
+            
+            <div class="input-wrapper">
+                <input type="file" id="img" placeholder="Upload your profile picture"/>
+                <p id="errorImg" class="text-left text-sm text-red-500">Image is required</p>
+
+            </div>
+            
+            <button id="register" class="cursor-pointer bg-purple-200 px-12 py-2 rounded-2xl">Send</button>
+            <span>Already have an account? <a href="../login.html" class="text-purple-900 underline">login</a></span>
+        </form>
+    </div>
+    <script src="../Classes/Student.js"></script>
+    <script src="../StoredData/Data.js"></script>
+
+    <script src="../Authentication/Register.js"></script>
+</body>
+</html>

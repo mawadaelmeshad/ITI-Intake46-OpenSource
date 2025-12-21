@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>Students Results</title>
+</head>
+<body>
+    <div id="dashboard">
+        <nav class="bg-white rounded-b-2xl">
+            <ul class="flex flex-row flex-wrap justify-left items-center gap-10 text-lg p-4">
+                <li id="welcome" class="text-lg text-purple-400">👤 welcome </li>
+                <li><a href="dashboard.html">Exams</a></li>
+                <li><a href="studnetsRes.html">Students</a></li>
+                <li class="logout cursor-pointer text-red-500 underline">Logout</li>
+
+                <li id="theme" class="bg-purple-200 rounded-full text-center mr-6 p-2  cursor-pointer absolute right-0">🌞</li>
+
+            </ul>
+        </nav>
+        <div class="overflow-x-auto max-w-[200px] m-auto mx-6 mt-6">
+            <table class="mt-6 border-collapse w-full overflow-x-auto">
+                <thead>
+                    <tr class="bg-purple-900 text-white">
+                        <td class="border border-purple-900 px-6 py-3 text-center">Actions</td>
+                        <td class="border border-purple-900 px-6 py-3 text-center">Score</td>
+                        <td class="border border-purple-900 px-6 py-3 text-center">Student name</td>
+                        <td class="border border-purple-900 px-6 py-3 text-right">Exam ID</td>
+
+                    </tr>
+                </thead>
+                <tbody id="stdResBody">
+                    
+                </tbody>
+            </table>
+        </div>
+        </div>
+        
+        <div id="examDetailsModal" class="modal-overlay hidden">
+            <div class="examDetails relative bg-white rounded-lg shadow-xl max-w-2xl mx-6 w-full max-h-[90vh] overflow-y-auto overflow-x-hidden m-4">
+                <div class="bg-purple-800 text-white px-6 py-4 flex justify-between items-center">
+                    <h2 id="modalTitle" class="text-2xl font-bold">Exam Details</h2>
+                    <div class="closeModal cursor-pointer absolute right-0 top-0 m-6">❌</div>
+                </div>
+                
+                <div class="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+                    <div id="studentInfo" class="mb-6">
+                        <p><strong>Student:</strong></p>
+                        <p><strong>Score:</strong></p>
+                        <p><strong>Date:</strong></p>
+                    </div>
+                    
+                    <div id="examQuestionsContainer"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="./Classes/StudentRes.js"></script>
+    <script src="./StoredData/Data.js"></script>
+    <script src="./main/StudentsRes.js"></script>
+    <script src="./main/theme.js"></script>
+
+</body>
+</html>

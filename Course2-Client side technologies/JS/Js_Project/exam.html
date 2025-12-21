@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="data:,">
+
+    <title>Exam</title>
+</head>
+<body>
+    <div class="exam-container p-4">
+        <div class="timer-bar-container">
+            <div class="timer-bar" id="timerBar" style="width: 100%;"></div>
+        </div>
+        <!-- Exam Header -->
+        <div class="exam-header">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-purple-900" id="examTitle">Loading ...</h1>
+
+                    <p class="text-gray-600 mt-2" id="examInfo"></p>
+                </div>
+                <div class="timer-display" id="timerDisplay">
+                    00:00
+                </div>
+            </div>
+            <div id="timePerQ" class="text-gray-600">
+                    
+                </div>
+            </div>
+            <div class="progress-info mt-4">
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold" id="progress">Progress:</span>
+                    <span id="progressText">Question 1 of --</span>
+                </div>
+            </div>
+            <div id="questionsContainer" class="mb-4">
+                
+            </div>
+            <div id="choicesContainer" class="mb-6">
+
+            </div>
+            <div class="text-center" id="navigationContainer">
+                <button id="nextBtn" class="next-btn" disabled>
+                    Next Question →
+                </button>
+            </div>
+    </div>
+    <script src="./StoredData/Data.js"></script>
+    <script src="./Classes/StudentRes.js"></script>
+
+    <script src="./main/exam.js"></script>
+</body>
+</html>

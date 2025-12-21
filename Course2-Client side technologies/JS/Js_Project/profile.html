@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>Profile</title>
+</head>
+<body>
+    <div class="profile overflow-y-auto">
+        <nav class="bg-white rounded-b-2xl">
+            <ul class="flex flex-row flex-wrap justify-left items-center gap-10 text-lg p-4">
+                <li id="welcome" class="text-lg text-purple-400">👤 welcome </li>
+                <li><a href="">Profile</a></li>
+                <li class="logout cursor-pointer text-red-500 underline">Logout</li>
+
+                <!-- <li id="theme" class="bg-purple-200 rounded-full text-center mr-6 p-2  cursor-pointer absolute right-0">🌞</li> -->
+
+            </ul>
+        </nav>
+        <div class="p-4">
+            <img id="userImg" src="https://tse1.mm.bing.net/th/id/OIP.kdMwybQdHDRFYF5Avk1DIQHaHa?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="profile" class="rounded-full m-auto mt-4" width="170px" />
+            <h2 class="text-center" id="username"></h2>
+            <p class="font-bold text-lg">Completed Exams :</p>
+            <table id="completedExams" class="w-1/2 overflow-x-auto">
+                <thead>
+                    <tr>
+                        <td class="bg-yellow-500">Exam name</td>
+                        <td class="bg-yellow-500">Score</td>
+                        <td class="bg-yellow-500">Date taken</td>
+                    </tr>
+                </thead>
+                <tbody id="completedExamsBody">
+
+                </tbody>
+
+            </table>
+            <p class="mt-6 font-bold text-lg">Next required Exams :</p>
+            <p class="ml-4  noExams">No exams yet!</p>
+
+            <ul id="nextExams">
+
+            </ul>
+        </div>
+    </div>
+    <script src="./StoredData/Data.js"></script>
+    <script src="./main/student.js"></script>
+</body>
+</html>

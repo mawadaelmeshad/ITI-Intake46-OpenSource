@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+
+    <title>login</title>
+</head>
+<body>
+    <!-- registeration form  -->
+    <div>
+        <img src="./Images/flower.gif" alt="flower" width="300px" class="absolute bottom-0"/>
+        <form method="post" class="auth-form">
+            <h2>Login form</h2>
+            <div class="input-wrapper">
+                <input type="text" placeholder="Enter your username" id="username"/>
+                <p id="errorName" class="text-left text-sm text-red-500">Username is required</p>
+            </div>
+            
+            <div class="input-wrapper">
+                <input type="password" id="pass" placeholder="Enter your password"/>
+                <p id="errorPass" class="text-left text-sm text-red-500">Password is required and longer than 5 chars</p>
+            </div>
+
+            <button id="login" class="cursor-pointer bg-purple-200 px-12 py-2 rounded-2xl">Send</button>
+
+            <span>Dont have an account? <a href="../register.html" class="text-purple-900 underline">Register</a></span>
+
+
+
+        </form>
+    </div>
+    <script src="./StoredData/Data.js"></script>
+    <script src="./Authentication/Login.js" ></script>
+    
+</body>
+</html>

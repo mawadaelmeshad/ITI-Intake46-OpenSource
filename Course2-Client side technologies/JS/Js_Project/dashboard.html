@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div id="dashboard">
+        <nav class="bg-white rounded-b-2xl">
+            <ul class="flex flex-row justify-left items-center gap-10 text-lg p-4">
+                <li id="welcome" class="text-lg text-purple-400">👤 welcome </li>
+                <li><a href="dashboard.html">Exams</a></li>
+                <li><a href="studnetsRes.html">Students</a></li>
+                <li class="logout cursor-pointer text-red-500 underline">Logout</li>
+
+                <li id="theme" class="bg-purple-200 rounded-full text-center mr-6 p-2  cursor-pointer absolute right-0">🌞</li>
+
+            </ul>
+        </nav>
+        <div class="flex justify-center my-8">
+            <button class="text-green-800 cursor-pointer font-bold text-lg" id="add">
+                ➕ Add New Exam
+            </button>
+        </div>
+        <div>
+
+        <table class="m-auto w-3/4 mt-6 border-collapse">
+            <thead>
+                <tr class="bg-purple-900 text-white">
+                    <td class="border border-purple-900 px-6 py-3">Actions</td>
+                    <td class="border border-purple-900 px-6 py-3 text-center">Exam name</td>
+                    <td class="border border-purple-900 px-6 py-3 text-right">ID</td>
+                </tr>
+            </thead>
+            <tbody id="examsBody">
+                
+            </tbody>
+        </table>
+        <div class="modal-overlay hidden" id="modalOverlay">
+            <div class="addExam  relative bg-white">
+                <form class="p-6 mt-8">
+                    <h2 id="modalTitle">Add Exam</h2>
+                    <div class="closeAdd cursor-pointer absolute right-0 top-0 m-6">❌</div>
+                        <div class="stepOne">
+                            <div class="input-wrapper">
+                                <input type="text" placeholder="Enter exam name" id="examName"/>
+                                <p id="errorExName" class="text-left text-sm text-red-500">Exam name is required</p>
+                            </div>
+                            <div class="input-wrapper">
+                                <input type="text" placeholder="Enter exam duration" id="duration"/>
+                                <p id="errorDuration" class="text-left text-sm text-red-500">Duration is required and should not be less than 20 min</p>
+                            </div>
+                            <div class="input-wrapper">
+                                <input type="number" placeholder="Enter how many questions" id="Qnumber"/>
+                                <p id="errorQnumber" class="text-left text-sm text-red-500">Questions number is required and must be more than 2</p>
+                            </div>
+                            <div class="input-wrapper">
+                                <label class="block mb-2 font-semibold text-gray-700">👥 Assign Students</label>
+                                <div class="assign-stds-container border rounded-lg p-3 max-h-48 overflow-y-auto bg-gray-50">
+                                    <!-- Checkboxes -->
+                                </div>
+                                <p id="errorAssign" class="text-left text-sm text-red-500">Assigned students should be selected</p>
+
+                            </div>
+                            <button id="examBtn" class="cursor-pointer bg-purple-400 px-12 py-2 rounded-2xl mt-6">Next</button>
+                        </div>
+                        <div class="stepTwo hidden">
+                            
+                            <div id="questionsContainer"></div>
+                            
+                            <button type="button" id="saveExamBtn" class="cursor-pointer bg-purple-400  text-white px-12 py-2 rounded-2xl mt-6">
+                                Save Exam
+                            </button>
+                        </div>
+
+                </form>
+
+            </div>
+        </div>
+        </div>
+
+    </div>
+    <template id="questionTemplate">
+        <div class="question-card">
+            <h3 class="question-header"></h3>
+            
+            <div class="mb-4">
+                <label class="block mb-2 font-semibold text-gray-700">Question Text *</label>
+                <textarea 
+                    class="question-text w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500" 
+                    placeholder="Write your question here..." 
+                    rows="3" 
+                    required></textarea>
+            </div>
+            
+            <!-- Image Upload -->
+            <div class="mb-4">
+                <label class="block mb-2 font-semibold text-gray-700">Upload Image (optional)</label>
+                <input type="file" class="question-image w-full p-2 border rounded" accept="image/*"/>
+                <div class="image-preview mt-2"></div>
+            </div>
+            
+            <!-- Answer Choices -->
+            <div class="mb-4">
+                <label class="block mb-2 font-semibold text-gray-700">Answer Options * <small class="text-gray-500">(select correct one)</small></label>
+                <div class="grid grid-cols-1 gap-3">
+                    <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg  cursor-pointer transition">
+                        <input type="radio" class="correct-answer w-5 h-5 text-purple-600" value="0" required>
+                        <input type="text" class="choice-text flex-1 bg-transparent outline-none" placeholder="Option A" required>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg  cursor-pointer transition">
+                        <input type="radio" class="correct-answer w-5 h-5 text-purple-600" value="1">
+                        <input type="text" class="choice-text flex-1 bg-transparent outline-none" placeholder="Option B" required>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg  cursor-pointer transition">
+                        <input type="radio" class="correct-answer w-5 h-5 text-purple-600" value="2">
+                        <input type="text" class="choice-text flex-1 bg-transparent outline-none" placeholder="Option C" required>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg  cursor-pointer transition">
+                        <input type="radio" class="correct-answer w-5 h-5 text-purple-600" value="3">
+                        <input type="text" class="choice-text flex-1 bg-transparent outline-none" placeholder="Option D" required>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Difficulty and Score -->
+            <div class="flex gap-4">
+                <div class="flex-1">
+                    <label class="block mb-2 font-semibold text-gray-700">Difficulty</label>
+                    <select class="question-level bg-transparent w-full p-2 border rounded focus:border-purple-500">
+                        <option value="Easy" >Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </div>
+                <div class="flex-1">
+                    <label class="block mb-2 font-semibold text-gray-700">Score</label>
+                    <input type="number" class="question-score w-full p-2 border rounded" readonly/>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script src="./Classes/Exam.js"></script>
+    <script src="./Classes/Question.js"></script>
+    <script src="./StoredData/Data.js"></script>
+    <script src="./main/theme.js"></script>
+
+
+    <script src="./main/teacher.js"></script>
+</body>
+</html>
