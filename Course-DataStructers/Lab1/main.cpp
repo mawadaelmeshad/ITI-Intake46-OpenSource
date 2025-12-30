@@ -46,7 +46,7 @@ private:
     }
 public:
     LinkedList(){
-    head = tail = nullptr;
+     head = tail = nullptr;
     }
 
     void append(int id , string name , int age){
@@ -130,14 +130,22 @@ public:
         if(node1){
            if(node1 == head && node1 == tail){
                head= tail = nullptr;
-                cout<<"Node Deleted Successfully"<<endl;
 
            }
+            else if(node1 == head){
+            head = head->next;
+            head->prev = nullptr;
+        }
+            else if(node1 == tail){
+                tail = tail->prev;
+                tail->next = nullptr;
+            }
            else{
             node1->prev->next =node1->next;
             node1->next->prev = node1->prev;
-            cout<<"Node Deleted Successfully"<<endl;
            }
+            delete node1;
+            cout << "Node Deleted Successfully" << endl;
 
         }
         else{
