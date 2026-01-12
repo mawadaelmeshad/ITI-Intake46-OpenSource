@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HTML5 Audio Example</title>
+        <style>
+            li {
+                cursor: pointer;
+                padding: 5px;
+                margin: 5px 0;
+            }
+            li:hover {
+                background-color: #f0f0f0;
+            }
+            li.active {
+                background-color: #4CAF50;
+                color: white;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="super-mario.webp" width="200px" alt="super mario" />
+
+        <audio id="myAudio"
+            src="Super Mario Bros (NES) Music - Overworld Theme.mp3"></audio>
+
+        <br>
+        <label>time range</label>
+        <input type="range" id="timeRange" min="0" value="0" step="0.1">
+        <label>volume range</label>
+        <input type="range" id="volumeRange" min="0" max="1" value="1" step="0.1">
+
+
+        <br>
+        <button onclick="playAudio()">play</button>
+        <button onclick="pauseAudio()">pause</button>
+        <button onclick="stopAudio()">stop</button>
+        <ul id="playlist">
+            <li data-src="Super Mario Bros (NES) Music - Overworld Theme.mp3" class="active">Super Mario</li>
+            <li data-src="wrong-place-129242.mp3">Second Audio</li>
+            <li data-src="winner-game-sound-404167.mp3">Third Audio</li>
+        </ul>
+
+
+        <script>
+            var audioTag = document.getElementById("myAudio");
+            var timRange = document.getElementById("timeRange");
+            var volRange = document.getElementById("volumeRange");
+            var playlistItems = document.querySelectorAll("#playlist li");
+
+
+            console.log(audioTag);
+            console.log(timRange);
+
+
+            // when audio metadata is loaded --> give audio duration =  time range
+            audioTag.addEventListener("loadedmetadata", function () {
+                //set max value of range = audio duration (seconds)
+                timRange.max = audioTag.duration
+                volRange.max = 1;
+            })
+
+
+            //update range value while audio is playing
+            audioTag.addEventListener("timeupdate", function () {
+                timRange.value = audioTag.currentTime;
+            })
+            audioTag.addEventListener("volumechange", function () {
+                volRange.value = audioTag.volume;
+            })
+
+
+            timRange.addEventListener("input", function () {
+                audioTag.currentTime = timRange.value;
+            })
+            volRange.addEventListener("input", function () {
+                audioTag.volume = volRange.value;
+            })
+
+
+            playlistItems.forEach(function(item) {
+                item.addEventListener("click", function() {
+                    var newSrc = item.getAttribute("data-src");
+                    audioTag.src = newSrc;
+                    audioTag.load();
+                    audioTag.play();
+                    playlistItems.forEach(function(li) {
+                        li.classList.remove("active");
+                    });
+                    
+                    item.classList.add("active");
+                    timRange.value = 0;
+                });
+            });
+
+
+            function playAudio() {
+                audioTag.play()
+            }
+            function pauseAudio() {
+                audioTag.pause()
+            }
+
+            function stopAudio() {
+                audioTag.pause();
+                audioTag.currentTime = 0;
+            }
+        </script>
+
+    </body>
+</html>
