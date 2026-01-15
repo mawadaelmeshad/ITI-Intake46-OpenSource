@@ -1,0 +1,50 @@
+body {
+    background-color: #f7f7f7;
+}
+
+.items {
+    width: 380px;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.selection-btn {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.selection-btn i {
+    color: #666;
+}
+
+.selection-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.box {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.drop-area {
+    border: 2px dashed #9ec5fe;
+    color: #0d6efd;
+    padding: 40px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 500;
+}
+.box button {
+    display: block;     
+    margin-bottom: 12px;   
+}
