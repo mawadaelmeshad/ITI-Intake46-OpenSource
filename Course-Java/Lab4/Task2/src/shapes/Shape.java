@@ -8,9 +8,6 @@ package shapes;
  *
  * @author mawad
  */
-public  class Shape {
-     public  void draw(){
-         System.out.println("drawing shape ...");
-         
-     };
+public abstract class Shape {
+    public abstract  void draw();
 }

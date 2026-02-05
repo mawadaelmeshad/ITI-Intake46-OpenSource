@@ -10,7 +10,7 @@ package exceptions;
  */
 public class NegativeNumException extends Exception {
     public NegativeNumException(){
-        super("It is negaqtive number could not handle...");
+       r(" supeIt is negaqtive number could not handle...");
     }
     
 }
