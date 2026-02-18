@@ -1,0 +1,108 @@
+{
+    "library": {
+        "location" : "Cairo",
+        "description" : "This library contains a large collection of science and programming books.",
+        "librarian" : "Mawadah",
+        "books": [
+            {
+                "ISBN": "978-1234567890",
+                "title": "Java Programming",
+                "author": "John Smith",
+                "preface": "This book introduces the basics of Java programming language.",
+                 "parts": [
+                    {
+                         "title": "Introduction",
+                        "chapters": [
+                            {
+                                  "title": "What is Java?",
+                                  "summary": "Overview of Java language",
+                                 "sections": [
+                                      {
+                                        "paragraphs": [
+                                          "Java is a high-level programming language.",
+                                          "It is object-oriented and platform independent."
+                                        ]
+                                      }
+                                 ]
+                            }
+                            
+                        ]
+                        
+                    },
+                    
+                    {
+                         "title": "OOP Concepts",
+                        "chapters": [
+                            {
+                                  "title": "Classes and Objects",
+                                   "summary": "Understanding classes in Java",
+                                 "sections": [
+                                      {
+                                         "paragraphs": [
+                                            "Classes are blueprints for creating objects.",
+                                            "Objects are instances of classes."
+                                          ]
+                                      }
+                                 ]
+                            }
+                            
+                        ]
+                        
+                    }
+                 ]
+                 
+            },
+            
+             {
+                "ISBN": "978-1234567890",
+                "title": "Java Programming",
+                "author": "John Smith",
+                "preface": "This book introduces the basics of Java programming language.",
+                 "parts": [
+                    {
+                         "title": "Introduction",
+                        "chapters": [
+                            {
+                                  "title": "What is Java?",
+                                  "summary": "Overview of Java language",
+                                 "sections": [
+                                      {
+                                        "paragraphs": [
+                                          "Java is a high-level programming language.",
+                                          "It is object-oriented and platform independent."
+                                        ]
+                                      }
+                                 ]
+                            }
+                            
+                        ]
+                        
+                    },
+                    
+                    {
+                         "title": "OOP Concepts",
+                        "chapters": [
+                            {
+                                  "title": "Classes and Objects",
+                                   "summary": "Understanding classes in Java",
+                                 "sections": [
+                                      {
+                                         "paragraphs": [
+                                            "Classes are blueprints for creating objects.",
+                                            "Objects are instances of classes."
+                                          ]
+                                      }
+                                 ]
+                            }
+                            
+                        ]
+                        
+                    }
+                 ]
+                 
+            }
+            
+        ]
+                
+    }
+}

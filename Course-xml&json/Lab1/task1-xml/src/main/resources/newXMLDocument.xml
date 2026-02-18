@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<library location="Cairo">
+    <description>
+        <![CDATA[
+        This library contains a large collection of science and programming books.
+        ]]>
+    </description>
+     <librarian name="Mawadah Elmashad" />
+     <books>
+         <book ISBN="978-1234567890" title="Java" author="Mawada">
+             <preface>
+                <![CDATA[
+                This book introduces the basics of Java programming language.
+                ]]>
+            </preface>
+            <part number="1">
+                <title>Introduction</title>
+                <chapter number="1">
+                    <title>What is Java?</title>
+                    <summary>Overview of Java language</summary>
+                    
+                    <section>
+                        <![CDATA[
+                        Java is a high-level, object-oriented programming language.
+                        ]]>
+                    </section>
+                    
+                </chapter>
+            </part>
+             <part number="2">
+                <title>OOP Concepts</title>
+                
+                <chapter number="2">
+                    <title>Classes and Objects</title>
+                    <summary>Understanding classes</summary>
+                    
+                    <section>
+                        <![CDATA[
+                        Classes are blueprints for creating objects.
+                        ]]>
+                    </section>
+                    
+                </chapter>
+                
+            </part>
+             
+         </book>
+         
+          <book ISBN="978-1234567890" title="Java" author="Mawada">
+             <preface>
+                <![CDATA[
+                This book introduces the basics of Java programming language.
+                ]]>
+            </preface>
+            <part number="1">
+                <title>Introduction</title>
+                <chapter number="1">
+                    <title>What is Java?</title>
+                    <summary>Overview of Java language</summary>
+                    
+                    <section>
+                        <![CDATA[
+                        Java is a high-level, object-oriented programming language.
+                        ]]>
+                    </section>
+                    
+                </chapter>
+            </part>
+             <part number="2">
+                <title>OOP Concepts</title>
+                
+                <chapter number="2">
+                    <title>Classes and Objects</title>
+                    <summary>Understanding classes</summary>
+                    
+                    <section>
+                        <![CDATA[
+                        Classes are blueprints for creating objects.
+                        ]]>
+                    </section>
+                    
+                </chapter>
+                
+            </part>
+             
+         </book>
+         
+     </books>
+    
+</library>
+
