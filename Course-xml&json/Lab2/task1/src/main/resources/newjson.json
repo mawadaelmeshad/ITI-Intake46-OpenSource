@@ -1,0 +1,8 @@
+{
+  "library": "Central Library",
+  "location": "Cairo",
+  "books": [
+    { "title": "Java", "isbn": "111", "author": "Ahmed" },
+    { "title": "C++", "isbn": "222", "author": "Ali" }
+  ]
+}

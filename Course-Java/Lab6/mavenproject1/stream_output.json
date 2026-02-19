@@ -1,0 +1,15 @@
+{
+    "company": "TechCorp",
+    "employees": [
+        {
+            "id": 1,
+            "name": "Alice",
+            "salary": 5000.0
+        },
+        {
+            "id": 2,
+            "name": "Bob",
+            "salary": 6000.0
+        }
+    ]
+}
