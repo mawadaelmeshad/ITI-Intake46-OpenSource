@@ -40,10 +40,18 @@
         foreach($skills as $skill){
             echo "<li>$skill</li>";
         }
+        $skills_string = implode(",", $skills);
+        $data = $fname . "|" . $lname . "|" . $address . "|" . $gender .  "|" . $skills_string . "|" .$fname . " ". $lname . "|" . $department . "\n";
+
+        file_put_contents("data.txt", $data, FILE_APPEND);
+    
         ?>
     </ul>
-    Department: <?php echo $department; ?>
-
+    Department: <?php echo $department; 
+    header("Location: users.php");
+    exit();
+    ?>
     
+
 </body>
 </html>

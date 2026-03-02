@@ -8,10 +8,13 @@
     <style>
         body {
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            background-color: pink;
+
         }
 
         form {
             width: 400px;
+            font-size: 1.4rem;
             margin: 50px auto;
             padding: 20px;
             background: white;
