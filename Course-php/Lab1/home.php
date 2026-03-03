@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete</title>
+    <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
     <style>
-        body { background-color: #fce4ec;  }
+        body { background-color: #fce4ec;; }
         .navbar { background-color: hotpink; }
-        
     </style>
 </head>
 <body>
-    
+
     <nav class="navbar navbar-expand-lg mb-4">
         <div class="container">
             <a class="navbar-brand fw-bold text-white" href="#">🌸 UserPanel</a>
@@ -31,35 +30,18 @@
         </div>
     </nav>
 
-    <div class="container d-flex justify-content-center">
-        <div class="card shadow p-4 text-center mt-5" style="max-width: 450px; width: 100%;">
-        <div class="card-body p-4">
-            <?php
-                require "db.php";
-                $id = $_GET['id'] ?? null;
-
-                if ($id === null) {
-                    echo "No user selected!";
-                    exit;
-                }
-                $stmt = $connection->prepare("DELETE FROM users WHERE id=?");
-                $stmt->bind_param("i", $id);
-                $stmt->execute();
-                
-
-                echo '
-                <h2>User deleted successfully!</h2>
-                <p class="text-muted">The user has been removed from the system.</p>
-                <div class="d-flex gap-2 justify-content-center">
-                    <a href="users.php" class="btn text-white" style="background-color: hotpink;">← Back to Users</a>
-                    <a href="registration.php" class="btn btn-outline-secondary">➕ Add New User</a>
-                </div>
-                ';
-
-            ?>
+    <div class="container text-center mt-5">
+        <div class="card shadow p-5 mx-auto" style="max-width: 900px;">
+            <div class="mb-3" style="font-size: 3rem;">🌸</div>
+            <h1 class="fw-bold mb-2">Welcome to UserPanel!</h1>
+            <p class="text-muted mb-4">Manage your users easily — add, view, or remove them all from one place.</p>
+            <hr>
+            <div class="d-flex justify-content-center gap-3 mt-3">
+                <a href="users.php" class="btn btn-lg" style="background-color: hotpink; color: white;">View Users</a>
+                <a href="registration.php" class="btn btn-outline-secondary btn-lg">Add User</a>
             </div>
         </div>
     </div>
-    
+
 </body>
 </html>
