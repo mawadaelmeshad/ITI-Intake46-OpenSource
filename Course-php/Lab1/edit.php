@@ -1,3 +1,88 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
+require "db.php";
+
+$id = $_GET['id'] ?? null;
+if ($id === null) {
+    echo '<div class="container"><div class="alert alert-warning">⚠️ No user selected.</div></div>';
+    exit;
+}
+
+$stmt = $connection->prepare("SELECT * FROM users WHERE id=?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$row = $stmt->get_result()->fetch_assoc();
+
+if (!$row) {
+    echo '<div class="container"><div class="alert alert-danger">❌ User not found.</div></div>';
+    exit;
+}
+
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    if (empty(trim($_POST['fname']))) $errors['fname'] = "First name is required.";
+    if (empty(trim($_POST['lname']))) $errors['lname'] = "Last name is required.";
+    if (empty(trim($_POST['address']))) $errors['address'] = "Address is required.";
+    if (empty($_POST['country'])) $errors['country'] = "Please select a country.";
+    if (empty($_POST['gender'])) $errors['gender'] = "Please select a gender.";
+    if (empty($_POST['skills'])) $errors['skills'] = "Please select at least one skill.";
+    if (empty(trim($_POST['username']))) $errors['username'] = "Username is required.";
+
+    if (!empty($_POST['password']) && strlen($_POST['password']) < 6) {
+        $errors['password'] = "Password must be at least 6 characters.";
+    }
+
+    if (empty($errors)) {
+        $fname      = trim($_POST['fname']);
+        $lname      = trim($_POST['lname']);
+        $address    = trim($_POST['address']);
+        $gender     = $_POST['gender'];
+        $country    = $_POST['country'];
+        $username   = trim($_POST['username']);
+        $skills_str = implode(",", $_POST['skills']);
+        $department = $_POST['department'];
+
+        $image_name = $row['image'];
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
+            $image_name = uniqid() . "_" . basename($_FILES['image']['name']);
+            move_uploaded_file($_FILES['image']['tmp_name'], "uploads/" . $image_name);
+        }
+
+        if (!empty($_POST['password'])) {
+            $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $stmt = $connection->prepare("UPDATE users SET first_name=?, last_name=?, address=?, gender=?, skills=?, department=?, country=?, username=?, password=?, image=? WHERE id=?");
+            $stmt->bind_param("ssssssssssi", $fname, $lname, $address, $gender, $skills_str, $department, $country, $username, $hashed, $image_name, $id);
+        } else {
+            $stmt = $connection->prepare("UPDATE users SET first_name=?, last_name=?, address=?, gender=?, skills=?, department=?, country=?, username=?, image=? WHERE id=?");
+            $stmt->bind_param("sssssssssi", $fname, $lname, $address, $gender, $skills_str, $department, $country, $username, $image_name, $id);
+        }
+
+        if ($stmt->execute()) {
+            header("Location: users.php");
+            exit();
+        } else {
+            $errors['db'] = "Something went wrong. Please try again.";
+        }
+    }
+
+    $row['first_name']  = $_POST['fname'];
+    $row['last_name']   = $_POST['lname'];
+    $row['address']     = $_POST['address'];
+    $row['gender']      = $_POST['gender'];
+    $row['country']     = $_POST['country'];
+    $row['username']    = $_POST['username'];
+    $row['skills']      = implode(",", $_POST['skills'] ?? []);
+}
+
+$skills = explode(",", $row['skills']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +91,8 @@
     <title>Edit User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
     <style>
-        body { background-color: #fce4ec; }
+        body { background-color: #f9f0f3; }
         .navbar { background-color: hotpink; }
     </style>
 </head>
@@ -25,115 +109,111 @@
                     <li class="nav-item"><a class="nav-link text-white" href="home.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="registration.php">Add User</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <?php
-        require "db.php";
-
-        $id = $_GET['id'] ?? null;
-
-        if ($id === null) {
-            echo '<div class="container"><div class="alert alert-warning">⚠️ No user selected.</div></div>';
-            exit;
-        }
-
-        $stmt = $connection->prepare("SELECT * FROM users WHERE id=?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $row = $stmt->get_result()->fetch_assoc();
-
-        if (!$row) {
-            echo '<div class="container"><div class="alert alert-danger">❌ User not found.</div></div>';
-            exit;
-        }
-
-        $fname = $row['first_name'];
-        $lname  = $row['last_name'];
-        $address = $row['address'];
-        $gender  = $row['gender'];
-        $skills = explode(",", $row['skills']);
-        $department = $row['department'];
-        $country  = $row['country'];
-        $username = $row['username'];
-    ?>
-
-    <!-- Form Card -->
     <div class="container">
         <div class="card shadow mx-auto" style="max-width: 600px;">
             <div class="card-header fw-bold fs-5 text-white" style="background-color: hotpink;">
                 ✏️ Edit User
             </div>
             <div class="card-body">
-                <form action="update.php" method="POST">
-                    <input type="hidden" name="id" value="<?= $id ?>">
+
+                <?php if (isset($errors['db'])): ?>
+                    <div class="alert alert-danger"><?= $errors['db'] ?></div>
+                <?php endif; ?>
+
+                <form action="edit.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">First Name</label>
-                        <input type="text" name="fname" class="form-control" value="<?= htmlspecialchars($fname) ?>">
+                        <input type="text" name="fname" class="form-control <?= isset($errors['fname']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($row['first_name']) ?>">
+                        <div class="invalid-feedback"><?= $errors['fname'] ?? '' ?></div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Last Name</label>
-                        <input type="text" name="lname" class="form-control" value="<?= htmlspecialchars($lname) ?>">
+                        <input type="text" name="lname" class="form-control <?= isset($errors['lname']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($row['last_name']) ?>">
+                        <div class="invalid-feedback"><?= $errors['lname'] ?? '' ?></div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Address</label>
-                        <textarea name="address" class="form-control" rows="2"><?= htmlspecialchars($address) ?></textarea>
+                        <textarea name="address" class="form-control <?= isset($errors['address']) ? 'is-invalid' : '' ?>" rows="2"><?= htmlspecialchars($row['address']) ?></textarea>
+                        <div class="invalid-feedback"><?= $errors['address'] ?? '' ?></div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Country</label>
-                        <select name="country" class="form-select">
+                        <select name="country" class="form-select <?= isset($errors['country']) ? 'is-invalid' : '' ?>">
                             <option value="">Select Country</option>
-                            <option value="Egypt" <?= $country=="Egypt" ? 'selected' : '' ?>>Egypt</option>
-                            <option value="USA"   <?= $country=="USA"   ? 'selected' : '' ?>>USA</option>
+                            <option value="Egypt" <?= $row['country'] == 'Egypt' ? 'selected' : '' ?>>Egypt</option>
+                            <option value="USA"   <?= $row['country'] == 'USA'   ? 'selected' : '' ?>>USA</option>
                         </select>
+                        <div class="invalid-feedback"><?= $errors['country'] ?? '' ?></div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Gender</label><br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" value="male" <?= $gender=="male" ? 'checked' : '' ?>>
+                            <input class="form-check-input <?= isset($errors['gender']) ? 'is-invalid' : '' ?>" type="radio" name="gender" value="male" <?= $row['gender'] == 'male' ? 'checked' : '' ?>>
                             <label class="form-check-label">Male</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" value="female" <?= $gender=="female" ? 'checked' : '' ?>>
+                            <input class="form-check-input <?= isset($errors['gender']) ? 'is-invalid' : '' ?>" type="radio" name="gender" value="female" <?= $row['gender'] == 'female' ? 'checked' : '' ?>>
                             <label class="form-check-label">Female</label>
                         </div>
+                        <?php if (isset($errors['gender'])): ?>
+                            <div class="text-danger small mt-1"><?= $errors['gender'] ?></div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Skills</label><br>
-                        <?php foreach(["PHP","MySQL","J2SE","PostgreSQL"] as $skill): ?>
+                        <?php foreach (["PHP", "MySQL", "J2SE", "PostgreSQL"] as $skill): ?>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="skills[]" value="<?= $skill ?>" <?= in_array($skill, $skills) ? 'checked' : '' ?>>
+                            <input class="form-check-input <?= isset($errors['skills']) ? 'is-invalid' : '' ?>" type="checkbox" name="skills[]" value="<?= $skill ?>" <?= in_array($skill, $skills) ? 'checked' : '' ?>>
                             <label class="form-check-label"><?= $skill ?></label>
                         </div>
                         <?php endforeach; ?>
+                        <?php if (isset($errors['skills'])): ?>
+                            <div class="text-danger small mt-1"><?= $errors['skills'] ?></div>
+                        <?php endif; ?>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Department</label>
-                        <input type="text" name="department" class="form-control bg-light" value="<?= htmlspecialchars($department) ?>" readonly>
+                        <input type="text" name="department" class="form-control bg-light" value="<?= htmlspecialchars($row['department']) ?>" readonly>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Username</label>
-                        <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($username) ?>">
+                        <input type="text" name="username" class="form-control <?= isset($errors['username']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($row['username']) ?>">
+                        <div class="invalid-feedback"><?= $errors['username'] ?? '' ?></div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Enter new password to change it">
+                        <label class="form-label fw-semibold">New Password <span class="text-muted fw-normal">(leave blank to keep current)</span></label>
+                        <input type="password" name="password" class="form-control <?= isset($errors['password']) ? 'is-invalid' : '' ?>">
+                        <div class="invalid-feedback"><?= $errors['password'] ?? '' ?></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Profile Image <span class="text-muted fw-normal">(leave blank to keep current)</span></label>
+                        <?php if (!empty($row['image'])): ?>
+                            <div class="mb-2">
+                                <img src="uploads/<?= htmlspecialchars($row['image']) ?>" width="80" class="rounded">
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" name="image" class="form-control" accept="image/*">
                     </div>
 
                     <div class="d-flex gap-2">
                         <input type="submit" value="Update" class="btn w-50 text-white" style="background-color: hotpink;">
-                        <input type="reset"  value="Reset"  class="btn btn-outline-secondary w-50">
+                        <a href="users.php" class="btn btn-outline-secondary w-50">Cancel</a>
                     </div>
 
                 </form>

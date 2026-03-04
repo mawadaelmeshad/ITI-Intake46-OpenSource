@@ -26,6 +26,7 @@
                     <li class="nav-item"><a class="nav-link text-white" href="home.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="registration.php">Add User</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
