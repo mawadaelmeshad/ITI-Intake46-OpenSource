@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
     <style>
-        body { background-color: #fce4ec;; }
+        body { background-color: #fce4ec; }
         .navbar { background-color: hotpink; }
     </style>
 </head>
@@ -33,6 +33,8 @@
                     <li class="nav-item"><a class="nav-link text-white" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="registration.php">Add User</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
+                    <li class="nav-item"><span class="nav-link ms-4 text-white fw-semibold">👋 Hello, <?= $_SESSION['user'] ?></span></li>
+
 
                 </ul>
             </div>

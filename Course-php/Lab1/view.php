@@ -51,8 +51,8 @@
                     $stmt->bind_param("i", $id);
                     $stmt->execute();
                     $row = $stmt->get_result()->fetch_assoc();
-                    $headers = ["First Name", "Last Name", "Address", "Country", "Gender", "Skills","username", "Department"];
-                    $columns = ['first_name', 'last_name', 'address','country', 'gender', 'skills','username', 'department'];
+                    $headers = ["First Name", "Last Name", "Address", "Country", "Gender", "Skills","username", "Department", "Image"];
+                    $columns = ['first_name', 'last_name', 'address','country', 'gender', 'skills','username', 'department', 'image'];
 
                 ?>
 
@@ -66,7 +66,12 @@
                                     if ($header == "Skills" && $value != '') {
                                         $skills = explode(",", $value);
                                         echo implode(" , ", $skills);
-                                    } else {
+                                    }
+                                    elseif($header=="Image"){
+                                       echo '<img src="uploads/' . htmlspecialchars($value) . '" width="80" class="rounded">';
+
+                                    }
+                                     else {
                                         echo $value;
                                     }
                                 ?>

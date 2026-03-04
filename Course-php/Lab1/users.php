@@ -35,6 +35,8 @@
                     <li class="nav-item"><a class="nav-link text-white" href="users.php">Users</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="registration.php">Add User</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="logout.php">Logout</a></li>
+                    <li class="nav-item"><span class="nav-link ms-4 text-white fw-semibold">👋 Hello, <?= $_SESSION['user'] ?></span></li>
+
 
                 </ul>
             </div>

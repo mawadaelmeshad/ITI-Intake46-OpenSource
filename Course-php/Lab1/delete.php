@@ -36,11 +36,20 @@
         <div class="card shadow p-4 text-center mt-5" style="max-width: 450px; width: 100%;">
         <div class="card-body p-4">
             <?php
+                session_start();
                 require "db.php";
+                
                 $id = $_GET['id'] ?? null;
 
                 if ($id === null) {
                     echo "No user selected!";
+                    exit;
+                }
+                if ($id == $_SESSION['user_id']) {
+                    echo '
+                    <div class="alert alert-danger">❌ You cannot delete your own account!</div>
+                    <a href="users.php" class="btn text-white" style="background-color: hotpink;">← Back to Users</a>
+                    ';
                     exit;
                 }
                 $stmt = $connection->prepare("DELETE FROM users WHERE id=?");
