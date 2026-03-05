@@ -37,7 +37,8 @@
         <div class="card-body p-4">
             <?php
                 session_start();
-                require "db.php";
+                require_once "classes/User.php";
+                $userObj = new User();
                 
                 $id = $_GET['id'] ?? null;
 
@@ -47,24 +48,16 @@
                 }
                 if ($id == $_SESSION['user_id']) {
                     echo '
-                    <div class="alert alert-danger">❌ You cannot delete your own account!</div>
+                    <div class="alert alert-danger"> You cannot delete your own account!</div>
                     <a href="users.php" class="btn text-white" style="background-color: hotpink;">← Back to Users</a>
                     ';
                     exit;
                 }
-                $stmt = $connection->prepare("DELETE FROM users WHERE id=?");
-                $stmt->bind_param("i", $id);
-                $stmt->execute();
-                
-
-                echo '
-                <h2>User deleted successfully!</h2>
-                <p class="text-muted">The user has been removed from the system.</p>
-                <div class="d-flex gap-2 justify-content-center">
-                    <a href="users.php" class="btn text-white" style="background-color: hotpink;">← Back to Users</a>
-                    <a href="registration.php" class="btn btn-outline-secondary">➕ Add New User</a>
-                </div>
-                ';
+                if ($userObj->delete($id)) {
+                    echo '<div class="alert alert-success">User deleted successfully!</div>';
+                } else {
+                    echo '<div class="alert alert-danger">Something went wrong.</div>';
+                }
 
             ?>
             </div>

@@ -16,13 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($username) || empty($password)) {
         $error = "Please fill in all fields.";
     } else {
-        require "db.php";
+        require_once "classes/User.php";
+        $userObj = new User();
 
-        $stmt = $connection->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
+        $user = $userObj->login($username, $password);
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user'] = $user['username'];

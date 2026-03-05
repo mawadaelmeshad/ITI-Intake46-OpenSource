@@ -64,24 +64,26 @@
             $errors['image'] = "Please upload a profile image.";
         }
         if (empty($errors)) {
-        require "db.php";
-        $fname      = trim($_POST['fname']);
-        $lname      = trim($_POST['lname']);
-        $address    = trim($_POST['address']);
-        $gender     = $_POST['gender'];
-        $country    = $_POST['country'];
-        $username   = trim($_POST['username']);
-        $password   = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $skills_str = implode(",", $_POST['skills']);
-        $department = $_POST['department'];
+        require_once "classes/User.php";
+        $userObj = new User();
 
-        $stmt = $connection->prepare("INSERT INTO users (first_name, last_name, address, gender, skills, department, country, username, password, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssssss", $fname, $lname, $address, $gender, $skills_str, $department, $country, $username, $password, $image_name);
-        if ($stmt->execute()) {
+        $data = [
+            'fname'      => trim($_POST['fname']),
+            'lname'      => trim($_POST['lname']),
+            'address'    => trim($_POST['address']),
+            'gender'     => $_POST['gender'],
+            'country'    => $_POST['country'],
+            'username'   => trim($_POST['username']),
+            'password'   => password_hash($_POST['password'], PASSWORD_DEFAULT),
+            'skills_str' => implode(",", $_POST['skills']),
+            'department' => $_POST['department'],
+        ];
+
+        if ($userObj->create($data, $image_name)) {
             header("Location: users.php");
             exit();
         } else {
-            $errors['db'] = "Something went wrong. Please try again.";
+            $errors['db'] = "Something went wrong.";
         }
     }
     }

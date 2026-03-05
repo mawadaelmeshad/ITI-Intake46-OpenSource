@@ -50,8 +50,10 @@
             </div>
             <div class="card-body p-0 table-container">
                 <?php
-                    require "db.php";
-                    $result = $connection->query("SELECT * FROM users");
+                    require_once "classes/User.php";
+                    $userObj = new User();
+                    $users = $userObj->getAll();
+    
                     $headers = ["First Name", "Last Name", "Address", "Gender", "Skills", "Department"];
                 ?>
                 <table class="table table-bordered table-hover mb-0">
@@ -65,7 +67,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while($row = $result->fetch_assoc()): ?>
+                        <?php  foreach($users as $row): ?>
                             <tr>
                                 <td><?= $row['id'] ?></td>
                                 <td><?= $row['first_name'] ?></td>
@@ -82,7 +84,7 @@
                                     </div>
                                 </td>
                             </tr>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

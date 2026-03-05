@@ -5,7 +5,8 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-require "db.php";
+require_once "classes/User.php";
+$userObj = new User();
 
 $id = $_GET['id'] ?? null;
 if ($id === null) {
@@ -13,10 +14,8 @@ if ($id === null) {
     exit;
 }
 
-$stmt = $connection->prepare("SELECT * FROM users WHERE id=?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$row = $stmt->get_result()->fetch_assoc();
+$row = $userObj->getById($id);
+
 
 if (!$row) {
     echo '<div class="container"><div class="alert alert-danger">❌ User not found.</div></div>';
@@ -40,14 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($errors)) {
-        $fname      = trim($_POST['fname']);
-        $lname      = trim($_POST['lname']);
-        $address    = trim($_POST['address']);
-        $gender     = $_POST['gender'];
-        $country    = $_POST['country'];
-        $username   = trim($_POST['username']);
-        $skills_str = implode(",", $_POST['skills']);
-        $department = $_POST['department'];
+        $data = [
+            'fname'      => trim($_POST['fname']),
+            'lname'      => trim($_POST['lname']),
+            'address'    => trim($_POST['address']),
+            'gender'     => $_POST['gender'],
+            'country'    => $_POST['country'],
+            'username'   => trim($_POST['username']),
+            'password'   => !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : '',
+            'skills_str' => implode(",", $_POST['skills']),
+            'department' => $_POST['department'],
+        ];
+
 
         $image_name = $row['image'];
         if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
@@ -55,20 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             move_uploaded_file($_FILES['image']['tmp_name'], "uploads/" . $image_name);
         }
 
-        if (!empty($_POST['password'])) {
-            $hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $stmt = $connection->prepare("UPDATE users SET first_name=?, last_name=?, address=?, gender=?, skills=?, department=?, country=?, username=?, password=?, image=? WHERE id=?");
-            $stmt->bind_param("ssssssssssi", $fname, $lname, $address, $gender, $skills_str, $department, $country, $username, $hashed, $image_name, $id);
-        } else {
-            $stmt = $connection->prepare("UPDATE users SET first_name=?, last_name=?, address=?, gender=?, skills=?, department=?, country=?, username=?, image=? WHERE id=?");
-            $stmt->bind_param("sssssssssi", $fname, $lname, $address, $gender, $skills_str, $department, $country, $username, $image_name, $id);
-        }
-
-        if ($stmt->execute()) {
+        if ($userObj->update($id, $data, $image_name)) {
             header("Location: users.php");
             exit();
         } else {
-            $errors['db'] = "Something went wrong. Please try again.";
+            $errors['db'] = "Something went wrong.";
         }
     }
 

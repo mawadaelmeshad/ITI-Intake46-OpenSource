@@ -39,18 +39,16 @@
             </div>
             <div class="card-body">
                 <?php
-                    require "db.php";
+                    require_once "classes/User.php";
+                    $userObj = new User();
+
                     
                     $id = $_GET['id'] ?? null;
                     if ($id == null) {
                         echo '<div class="alert alert-warning">⚠️ No user selected.</div>';
                         exit;
                     }
-                    $stmt= $connection->prepare("SELECT * FROM users WHERE id=?");
-
-                    $stmt->bind_param("i", $id);
-                    $stmt->execute();
-                    $row = $stmt->get_result()->fetch_assoc();
+                    $row = $userObj->getById($id);
                     $headers = ["First Name", "Last Name", "Address", "Country", "Gender", "Skills","username", "Department", "Image"];
                     $columns = ['first_name', 'last_name', 'address','country', 'gender', 'skills','username', 'department', 'image'];
 
