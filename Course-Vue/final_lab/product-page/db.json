@@ -1,0 +1,47 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Casual Boots",
+      "description": "Rugged boots for everyday adventures.",
+      "image": "https://png.pngtree.com/thumb_back/fh260/background/20220211/pngtree-fashion-leather-shoes-fashioned-black-used-photo-image_15910540.jpg",
+      "badge": "SALE",
+      "price": 150,
+      "discount": 0,
+      "stock": 6,
+      "tags": [
+        "Casual",
+        "Winter"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Running Shoes",
+      "description": "Built for speed and comfort on any terrain.",
+      "image": "https://tse4.mm.bing.net/th/id/OIP.HSeMFYFrgeeblCiykqZgKwHaJQ?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "badge": "",
+      "price": 90,
+      "discount": 10,
+      "stock": 2,
+      "tags": [
+        "Sport",
+        "Running"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Running Shoes",
+      "description": "Built for speed and comfort on any terrain.",
+      "image": "https://img.freepik.com/premium-photo/blue-shoes_1037171-12507.jpg",
+      "badge": "",
+      "price": 90,
+      "discount": 10,
+      "stock": 2,
+      "tags": [
+        "Sport",
+        "Running"
+      ]
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

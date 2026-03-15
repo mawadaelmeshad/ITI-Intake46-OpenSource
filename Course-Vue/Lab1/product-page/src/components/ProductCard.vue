@@ -1,67 +1,50 @@
+<template>
+<div class="card bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer" @click="goToProduct">
+    <figure class="relative">
+    <img :src="product.image" :alt="product.name" class="w-full h-48 object-cover" />
+    <div v-if="product.badge" class="absolute top-2 left-2 badge badge-secondary">
+        {{ product.badge }}
+    </div>
+    </figure>
+
+    <div class="card-body p-4">
+    <h2 class="card-title text-base">{{ product.name }}</h2>
+
+    <div class="flex items-center gap-2">
+        <span class="text-lg font-bold text-primary">${{ discountedPrice }}</span>
+        <span v-if="product.discount > 0" class="text-sm line-through text-gray-400">
+        ${{ product.price }}
+        </span>
+    </div>
+
+    <div class="card-actions justify-end mt-2">
+        <button class="btn btn-primary btn-sm" @click.stop="goToProduct">
+        View Product
+        </button>
+    </div>
+    </div>
+</div>
+</template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
-item:{type:Object, required:true}
+product: { type: Object, required: true }
 })
+
+const router = useRouter()
 
 const discountedPrice = computed(() => {
-return props.item.price - (props.item.price * props.item.discount / 100)
+if (props.product.discount === 0) return props.product.price
+return (props.product.price * (1 - props.product.discount / 100)).toFixed(2)
 })
+
+function goToProduct() {
+router.push(`/product/${props.product.id}`)
+}
+
+onMounted(() => console.log(`ProductCard mounted — ${props.product.name}`))
+onUnmounted(() => console.log(`ProductCard unmounted — ${props.product.name}`))
 </script>
-
-<template>
-
-<div class="card w-80 bg-base-100 shadow-sm">
-<div class="card-body">
-    <span class="badge badge-xs badge-warning">Most Popular</span>
-    <div class="flex justify-between">
-    <h2 class="text-3xl font-bold">{{item.name}}</h2>
-    <div>
-        <span
-        v-if="item.discount > 0"
-        class="line-through text-gray-400"
-        >
-        ${{ item.price }}
-        </span>
-
-        <span class="text-primary font-bold ml-2">
-        ${{ discountedPrice }}
-        </span>
-
-    </div>
-    </div>
-    <ul class="mt-6 flex flex-col gap-2 text-xs">
-    <li>
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        <span>High-resolution image generation</span>
-    </li>
-    <li>
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        <span>Customizable style templates</span>
-    </li>
-    <li>
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        <span>Batch processing capabilities</span>
-    </li>
-    <li>
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        <span>AI-driven image enhancements</span>
-    </li>
-    <li class="opacity-50">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-base-content/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        <span class="line-through">Seamless cloud integration</span>
-    </li>
-    <li class="opacity-50">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 me-2 inline-block text-base-content/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-        <span class="line-through">Real-time collaboration tools</span>
-    </li>
-    </ul>
-    <div class="mt-6">
-    <button class="btn btn-primary btn-block">Buy</button>
-    </div>
-</div>
-</div>
-
-</template>

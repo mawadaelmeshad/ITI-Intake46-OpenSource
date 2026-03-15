@@ -1,88 +1,69 @@
-<script setup>
+<template>
+<div class="card lg:card-side bg-base-100 shadow-xl">
+    <figure class="lg:w-1/2">
+    <img :src="product.image" :alt="product.name" class="w-full h-full object-cover" />
+    </figure>
 
-import { computed } from 'vue'
+    <div class="card-body lg:w-1/2">
+    <div v-if="product.badge" class="mb-2">
+        <span class="badge badge-secondary badge-lg">{{ product.badge }}</span>
+    </div>
+
+    <h1 class="text-3xl font-bold">{{ product.name }}</h1>
+    <p class="text-gray-500">{{ product.description }}</p>
+
+    <div class="flex items-center gap-3 my-2">
+        <span class="text-3xl font-bold text-primary">${{ discountedPrice }}</span>
+        <span v-if="product.discount > 0" class="text-lg line-through text-gray-400">
+        ${{ product.price }}
+        </span>
+        <span v-if="product.discount > 0" class="badge badge-accent">
+        {{ product.discount }}% OFF
+        </span>
+    </div>
+
+    <p v-if="product.stock > 0" class="text-success font-semibold">
+        ✓ In Stock ({{ product.stock }} left)
+    </p>
+    <p v-else class="text-error font-semibold">✗ Out of Stock</p>
+
+    <div class="flex flex-wrap gap-2 my-2">
+        <span v-for="tag in product.tags" :key="tag" class="badge badge-outline">
+        {{ tag }}
+        </span>
+    </div>
+
+    <div class="card-actions mt-4">
+        <button
+        class="btn btn-primary btn-wide"
+        :disabled="product.stock === 0"
+        @click="handleBuy"
+        >
+        {{ product.stock === 0 ? 'Out of Stock' : 'Buy Now' }}
+        </button>
+    </div>
+    </div>
+</div>
+</template>
+
+<script setup>
+import { computed, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
-product: Object
+product: { type: Object, required: true }
 })
+
+const emit = defineEmits(['buy'])
 
 const discountedPrice = computed(() => {
-return props.product.price - (props.product.price * props.product.discount / 100)
+if (props.product.discount === 0) return props.product.price
+return (props.product.price * (1 - props.product.discount / 100)).toFixed(2)
 })
 
+function handleBuy() {
+emit('buy', props.product.id)
+}
+
+onMounted(() => console.log(`ProductDetails mounted — ${props.product.name}`))
+onUnmounted(() => console.log(`ProductDetails unmounted — ${props.product.name}`))
 </script>
-
-
-<template>
-
-<div class="card lg:card-side bg-base-100 shadow-xl max-w-3/4 mx-auto">
-
-<figure>
-<img :src="product.image" class="w-full lg:w-80">
-</figure>
-
-<div class="card-body">
-
-<h2 class="card-title">
-
-{{ product.name }}
-
-<span
-v-if="product.badge"
-class="badge badge-secondary"
->
-{{ product.badge }}
-</span>
-
-</h2>
-
-<p>{{ product.description }}</p>
-
-<div>
-
-<span
-v-if="product.discount > 0"
-class="line-through text-gray-400"
->
-${{ product.price }}
-</span>
-
-<span class="text-primary font-bold ml-2">
-${{ discountedPrice }}
-</span>
-
-</div>
-
-<div>
-
-<span
-v-for="tag in product.tags"
-:key="tag"
-class="badge badge-outline mr-2"
->
-
-{{ tag }}
-
-</span>
-
-</div>
-
-<span
-    v-if="!product.isAvailable"
-    class="badge badge-error"
-    >
-    Out of Stock
-</span>
-
-<button
-    class="btn btn-primary mt-3"
-    :disabled="!product.isAvailable"
-    >
-    Buy Now
-</button>
-
-</div>
-
-</div>
-
-</template>

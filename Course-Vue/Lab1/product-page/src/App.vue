@@ -1,48 +1,73 @@
 <script setup>
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 import HeaderComponent from './components/HeaderComponent.vue'
-import ProductDetails from './components/ProductDetails.vue'
-import RelatedProducts from './components/RelatedProducts.vue'
 import FooterComponent from './components/FooterComponent.vue'
 
 
-const product = ref({
-id: 1,
-name: "Cozy Sneakers",
-description: "High-quality sneakers that go with everything you wear.",
-image: "https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/primary/ProductShowcasesampleimages/JPEG/Product+Showcase-1.jpg",
-badge: "NEW",
-price: 120,
-discount: 20,
-tags: ["Fashion", "Casual", "Sport"],
-isAvailable: true
-})
-
-const relatedProducts = ref([
+const products = ref([
 {
-id: 2,
-name: "Running Shoes",
-price: 90,
-discount: 10,
-image: "https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/primary/ProductShowcasesampleimages/JPEG/Product+Showcase-1.jpg"
+    id: 1,
+    name: "Cozy Sneakers",
+    description: "High-quality sneakers that go with everything you wear.",
+    image: "https://tse4.mm.bing.net/th/id/OIP.EBDSSSNhj2aBdei91MU78AHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
+    badge: "NEW",
+    price: 120,
+    discount: 20,
+    stock: 1,
+    tags: ["Fashion", "Casual", "Sport"]
 },
 {
-id: 3,
-name: "Casual Boots",
-price: 150,
-discount: 0,
-image: "https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/primary/ProductShowcasesampleimages/JPEG/Product+Showcase-1.jpg"
+    id: 2,
+    name: "Running Shoes",
+    description: "Built for speed and comfort on any terrain.",
+    image: "https://tse4.mm.bing.net/th/id/OIP.EBDSSSNhj2aBdei91MU78AHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
+    badge: "",
+    price: 90,
+    discount: 10,
+    stock: 2,
+    tags: ["Sport", "Running"]
 },
 {
-id: 4,
-name: "Flip Flops",
-price: 30,
-discount: 50,
-image: "https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/primary/ProductShowcasesampleimages/JPEG/Product+Showcase-1.jpg"
+    id: 3,
+    name: "Casual Boots",
+    description: "Rugged boots for everyday adventures.",
+    image: "https://tse4.mm.bing.net/th/id/OIP.EBDSSSNhj2aBdei91MU78AHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
+    badge: "SALE",
+    price: 150,
+    discount: 0,
+    stock: 2,
+    tags: ["Casual", "Winter"]
+},
+{
+    id: 4,
+    name: "Flip Flops",
+    description: "Light and breezy for sunny days.",
+    image: "https://tse4.mm.bing.net/th/id/OIP.EBDSSSNhj2aBdei91MU78AHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
+    badge: "",
+    price: 30,
+    discount: 50,
+    stock: 4,
+    tags: ["Summer", "Casual"]
 }
 ])
+
+function handleBuy(id){
+    const product = products.value.find(p => p.id === id)
+
+    if(product && product.stock > 0){
+
+    product.stock--
+
+    }
+}
+
+const totalStock = computed(() =>
+    products.value.reduce((sum, p) => sum + p.stock, 0)
+)
+
+
 
 </script>
 
@@ -51,13 +76,14 @@ image: "https://d2v5dzhdg4zhx3.cloudfront.net/web-assets/images/storypages/prima
 <div class="bg-white min-h-[80vh] overflow-y-auto">
 
 
-<HeaderComponent />
+<HeaderComponent :totalStock="totalStock"/>
 
 <div class="container mx-auto p-10  ">
 
-<ProductDetails :product="product" />
-
-<RelatedProducts :products="relatedProducts" />
+<RouterView
+:products="products"
+@buy="handleBuy"
+/>
 
 </div>
 
