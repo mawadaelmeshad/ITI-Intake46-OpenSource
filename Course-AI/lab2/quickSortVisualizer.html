@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- ✅ Prevents sorting of invalid data- ✅ User knows exactly what went wrong and where- ✅ No ambiguous "invalid" messages- ✅ Real-time feedback during typing- ✅ Clear, specific error messages- ✅ Only valid numbers can be enteredThe enhanced validation ensures:## Summary- Both in `quickSortVisualizer.html`- `validateInputRealTime()` - Real-time feedback- `parseInput()` - Main validation function### Code Location5. **Final Validation**: Thorough check before sorting4. **Real-time Checks**: Validates during input event3. **Position Tracking**: Reports exact location of error2. **Character Detection**: Tests for letters, symbols separately1. **Regex Test**: `/^-?\d+(\.\d+)?$/` - strict number formatThe validation uses:### Validation Logic## For Developers| ❌ Error (red) | Red | Validation failed, can't sort || ⚠️ Warning (yellow) | Yellow | Invalid input detected during typing || ✓ Ready to sort | Green | Valid input, ready to proceed ||--------|-------|---------|| Status | Color | Meaning |## Visual Feedback5. **Get specific error message** telling you exactly what's wrong4. **Click Sort** if valid, or fix errors if shown3. **Watch real-time validation** - see ✓ or ⚠️ status2. **Paste** into the input field1. **Copy a valid array** from the examples above## How to Use```✗ 64.34.25✗ 64 34 25✗ 64,, 25✗ 64#, 34@, 25!✗ 64, thirty-four, 25✗ abc, def, ghi```### Invalid Test Cases (Watch for errors)```✓ -999✓ 100✓ 1.5, 2.5, 3.5✓ -10, -5, 0, 5, 10✓ 64, 34, 25, 12, 22, 11, 90```### Valid Test CasesTry these in the visualizer to see validation in action:## Testing Examples- Protects performance on very large arrays- Maximum: 1000 numbers- Minimum: 1 number### 5. **Size Limits**- No delay or typing restrictions- Warns about next invalid entry- Shows count of valid numbers- Validates as user types### 4. **Real-Time Feedback**- **What to do** - implied by message- **Where it went wrong** - position number- **What went wrong** - letters, symbols, formatInstead of generic "Invalid input", users see:### 3. **Specific Error Messages**- Rejects space-separated: `64 34 25` ❌- Handles extra spaces: `64  ,  34  ,  25` ✅- Automatically trims whitespace- Requires comma-separated values### 2. **Comma Separation**- Rejects text mixed with numbers: `64abc` ❌- Rejects multiple decimals: `3.14.15` ❌- Accepts decimals: `3.14`, `-2.71`- Accepts integers: `64`, `100`, `-50`### 1. **Number Format Validation**## Features```❌ Error: Array size 2000 is too large. Maximum 1000 elements allowed.❌ Error: Please enter some numbers```### General Errors```❌ Error: Position 2: Empty value between commas❌ Error: Position 3: "64%" contains invalid characters. Use numbers only.❌ Error: Position 1: "abc" contains letters. Only numbers are allowed.```### Position-Based Errors## Error Messages- Shows detailed error message with position and issue- Stops sorting if validation fails- Performs thorough validation before sorting**When Clicking Sort:**- Doesn't block typing - user can correct errors- ⚠️ Shows specific error warnings if invalid characters/formats detected- ✅ Shows `✓ X number(s) ready to sort` if input is valid- As users type, the system validates input in real-time**During Typing:**### How It Works## Real-Time Validation System| (empty) | Please enter some numbers | No input provided || `64.34.25, 12` | Not a valid number | Multiple decimal points || `64, 34, #, 25` | Contains invalid characters | Special characters || `64 34 25` | Not separated by commas | Wrong separator || `64,, 25` | Position 2: Empty value between commas | Missing value || `64, abc, 25` | Position 2 contains letters | Invalid number in middle || `64a, 34b, 25c` | Contains letters - only numbers allowed | Mixed text and numbers || `abc, def, ghi` | Contains letters - only numbers allowed | Text instead of numbers ||---|---|---|| Invalid Input | Error Message | Reason |### ❌ Invalid Inputs (Rejected with Error)```42, -42, 3.14, -2.71-10003.14, 2.71, 1.41-10, -5, 0, 5, 101, 2, 3, 4, 564, 34, 25, 12, 22, 11, 90```### ✅ Valid Inputs (Accepted)## Validation RulesThe QuickSort Visualizer now includes **strict input validation** with real-time feedback to ensure users only enter valid numbers.## Enhanced Input Validation Features<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickSort Visualizer - Interactive Sorting Algorithm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-sort {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .btn-sort:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-sort:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-sort:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-random {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-random:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(243, 156, 18, 0.3);
+        }
+
+        .btn-reset {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .visualization {
+            background: #f5f7fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            min-height: 400px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .visualization-title {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bars-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 8px;
+            height: 350px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .bar {
+            flex: 1;
+            min-width: 20px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8em;
+            padding-top: 8px;
+            overflow: hidden;
+        }
+
+        .bar.active {
+            background: linear-gradient(180deg, #f39c12 0%, #e67e22 100%);
+            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .bar.sorted {
+            background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .bar.comparing {
+            background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.05); }
+        }
+
+        .info-panel {
+            background: #ecf0f1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            color: #555;
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: bold;
+        }
+
+        .status {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .status.ready {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+
+        .status.sorting {
+            background: #fff9e6;
+            color: #f39c12;
+            animation: blink 1s infinite;
+        }
+
+        .status.completed {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+
+        .status.error {
+            background: #fadbd8;
+            color: #c0392b;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .instructions {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #1565c0;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .instructions strong {
+            color: #0d47a1;
+        }
+
+        .controls-info {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .input-section {
+                flex-direction: column;
+            }
+
+            input[type="text"] {
+                min-width: unset;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .bar {
+                min-width: 15px;
+                font-size: 0.7em;
+            }
+
+            .bars-container {
+                gap: 4px;
+            }
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .speed-control label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .speed-value {
+            color: #667eea;
+            font-weight: bold;
+            min-width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 QuickSort Visualizer</h1>
+        <p class="subtitle">Watch the QuickSort algorithm sort numbers with smooth animations</p>
+
+        <div class="instructions">
+            <strong>How to use:</strong> Enter numbers separated by commas (e.g., 64, 34, 25, 12), 
+            then click "Sort" to visualize the QuickSort algorithm. Use the speed slider to control animation speed.
+        </div>
+
+        <div class="input-section">
+            <input 
+                type="text" 
+                id="arrayInput" 
+                placeholder="Enter numbers separated by commas (e.g., 64, 34, 25, 12, 22, 11, 90)"
+                value="64, 34, 25, 12, 22, 11, 90"
+            >
+            <div class="button-group">
+                <button class="btn-sort" id="sortBtn" onclick="startSorting()">Sort</button>
+                <button class="btn-random" onclick="generateRandom()">Random</button>
+                <button class="btn-reset" onclick="resetVisualization()">Reset</button>
+            </div>
+        </div>
+
+        <div class="speed-control">
+            <label for="speedSlider">Animation Speed:</label>
+            <input type="range" id="speedSlider" min="0.1" max="2" step="0.1" value="1">
+            <span class="speed-value" id="speedValue">1x</span>
+        </div>
+
+        <div class="visualization">
+            <div class="visualization-title">Array Visualization</div>
+            <div class="bars-container" id="barsContainer"></div>
+            <div class="info-panel">
+                <div class="info-row">
+                    <span class="info-label">Array Size:</span>
+                    <span class="info-value" id="arraySize">0</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Comparisons:</span>
+                    <span class="info-value" id="comparisons">0</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Swaps:</span>
+                    <span class="info-value" id="swaps">0</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Time Elapsed:</span>
+                    <span class="info-value" id="timeElapsed">0ms</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="status ready" id="status">Ready to sort</div>
+        <div class="controls-info">Tip: Try different arrays or use the Random button to generate test cases</div>
+    </div>
+
+    <script>
+        // ==================== QUICKSORT IMPLEMENTATION ====================
+
+        let array = [];
+        let originalArray = [];
+        let isAnimating = false;
+        let comparisons = 0;
+        let swaps = 0;
+        let startTime = 0;
+
+        function quickSort(arr, low = 0, high = arr.length - 1) {
+            if (low < high) {
+                const pivotIndex = partition(arr, low, high);
+                quickSort(arr, low, pivotIndex - 1);
+                quickSort(arr, pivotIndex + 1, high);
+            }
+            return arr;
+        }
+
+        function partition(arr, low, high) {
+            const pivot = arr[high];
+            let i = low - 1;
+
+            for (let j = low; j < high; j++) {
+                comparisons++;
+                if (arr[j] < pivot) {
+                    i++;
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                    swaps++;
+                }
+            }
+
+            [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+            swaps++;
+            return i + 1;
+        }
+
+        // ==================== VISUALIZATION ====================
+
+        function parseInput() {
+            const input = document.getElementById('arrayInput').value;
+            const numbersRegex = /^-?\d+(\.\d+)?$/;
+            
+            if (!input.trim()) {
+                showStatus('❌ Error: Please enter some numbers', 'error');
+                return null;
+            }
+
+            try {
+                const segments = input.split(',');
+                
+                if (segments.length === 0) {
+                    throw new Error('No numbers provided');
+                }
+
+                const numbers = [];
+
+                for (let i = 0; i < segments.length; i++) {
+                    const segment = segments[i].trim();
+
+                    if (!segment) {
+                        throw new Error(`Position ${i + 1}: Empty value between commas`);
+                    }
+
+                    // Check if segment contains any letters or special characters (except minus and decimal point)
+                    if (!/^-?\d+(\.\d+)?$/.test(segment)) {
+                        // Provide specific error message
+                        if (/[a-zA-Z]/.test(segment)) {
+                            throw new Error(`Position ${i + 1}: "${segment}" contains letters. Only numbers are allowed.`);
+                        } else if (/[^\d\.\-\+]/.test(segment)) {
+                            throw new Error(`Position ${i + 1}: "${segment}" contains invalid characters. Use numbers only.`);
+                        } else {
+                            throw new Error(`Position ${i + 1}: "${segment}" is not a valid number.`);
+                        }
+                    }
+
+                    const num = parseFloat(segment);
+
+                    if (isNaN(num)) {
+                        throw new Error(`Position ${i + 1}: "${segment}" could not be parsed as a number`);
+                    }
+
+                    numbers.push(num);
+                }
+
+                if (numbers.length === 0) {
+                    throw new Error('No valid numbers found');
+                }
+
+                // Additional validation: check for reasonable array size
+                if (numbers.length > 1000) {
+                    throw new Error(`Array size ${numbers.length} is too large. Maximum 1000 elements allowed.`);
+                }
+
+                return numbers;
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                return null;
+            }
+        }
+
+        function renderBars(highlightIndices = [], sortedIndices = []) {
+            const container = document.getElementById('barsContainer');
+            const max = Math.max(...array);
+            const min = Math.min(...array);
+            const range = max - min || 1;
+
+            container.innerHTML = array.map((value, index) => {
+                const height = ((value - min) / range * 100) + 10;
+                const isHighlight = highlightIndices.includes(index);
+                const isSorted = sortedIndices.includes(index);
+                const className = isSorted ? 'sorted' : isHighlight ? 'active' : '';
+                
+                return `<div class="bar ${className}" style="height: ${height}%;" title="Value: ${value}">
+                    ${array.length <= 20 ? value : ''}
+                </div>`;
+            }).join('');
+
+            // Update info panel
+            document.getElementById('arraySize').textContent = array.length;
+            document.getElementById('comparisons').textContent = comparisons;
+            document.getElementById('swaps').textContent = swaps;
+        }
+
+        function updateTime() {
+            const elapsed = Date.now() - startTime;
+            document.getElementById('timeElapsed').textContent = elapsed + 'ms';
+        }
+
+        async function animatedQuickSort(arr, low = 0, high = arr.length - 1, sortedIndices = []) {
+            if (low < high) {
+                const pivotIndex = await animatedPartition(arr, low, high, sortedIndices);
+                await animatedQuickSort(arr, low, pivotIndex - 1, sortedIndices);
+                await animatedQuickSort(arr, pivotIndex + 1, high, sortedIndices);
+            } else if (low === high) {
+                sortedIndices.push(low);
+            }
+            return sortedIndices;
+        }
+
+        async function animatedPartition(arr, low, high, sortedIndices = []) {
+            const pivot = arr[high];
+            let i = low - 1;
+
+            for (let j = low; j < high; j++) {
+                comparisons++;
+                renderBars([j, high], sortedIndices);
+                await sleep(getAnimationDelay());
+
+                if (arr[j] < pivot) {
+                    i++;
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                    swaps++;
+                    renderBars([i, j], sortedIndices);
+                    await sleep(getAnimationDelay());
+                }
+            }
+
+            [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+            swaps++;
+            sortedIndices.push(i + 1);
+            renderBars([i + 1, high], sortedIndices);
+            await sleep(getAnimationDelay());
+
+            return i + 1;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function getAnimationDelay() {
+            const speed = parseFloat(document.getElementById('speedSlider').value);
+            return Math.max(10, 100 / speed);
+        }
+
+        // ==================== EVENT HANDLERS ====================
+
+        async function startSorting() {
+            const parsed = parseInput();
+            if (!parsed) return;
+
+            if (isAnimating) return;
+
+            array = [...parsed];
+            originalArray = [...parsed];
+            isAnimating = true;
+            comparisons = 0;
+            swaps = 0;
+            startTime = Date.now();
+
+            document.getElementById('sortBtn').disabled = true;
+            showStatus('Sorting... ' + array.length + ' numbers', 'sorting');
+
+            renderBars();
+
+            const sortedIndices = await animatedQuickSort(array);
+
+            // Show all bars as sorted
+            renderBars([], Array.from({length: array.length}, (_, i) => i));
+            
+            isAnimating = false;
+            document.getElementById('sortBtn').disabled = false;
+
+            updateTime();
+            const time = Date.now() - startTime;
+            showStatus(`✓ Sorted in ${time}ms! (Comparisons: ${comparisons}, Swaps: ${swaps})`, 'completed');
+        }
+
+        function generateRandom() {
+            const size = Math.floor(Math.random() * 15) + 5; // 5-20 numbers
+            const numbers = Array.from({length: size}, () => Math.floor(Math.random() * 100) + 1);
+            document.getElementById('arrayInput').value = numbers.join(', ');
+            resetVisualization();
+        }
+
+        function resetVisualization() {
+            if (isAnimating) return;
+
+            array = [];
+            comparisons = 0;
+            swaps = 0;
+            document.getElementById('comparisons').textContent = '0';
+            document.getElementById('swaps').textContent = '0';
+            document.getElementById('timeElapsed').textContent = '0ms';
+            document.getElementById('barsContainer').innerHTML = '';
+            document.getElementById('arraySize').textContent = '0';
+            showStatus('Ready to sort', 'ready');
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + type;
+        }
+
+        // ==================== REAL-TIME VALIDATION ====================
+
+        function validateInputRealTime() {
+            const input = document.getElementById('arrayInput').value;
+            const numbersRegex = /^-?\d+(\.\d+)?$/;
+
+            if (!input.trim()) {
+                return; // Don't show error while empty (waiting for input)
+            }
+
+            const segments = input.split(',');
+            let hasError = false;
+            let errorMessage = '';
+
+            for (let i = 0; i < segments.length; i++) {
+                const segment = segments[i].trim();
+
+                if (!segment) {
+                    continue; // Allow trailing commas during typing
+                }
+
+                // Check if segment contains any letters or special characters (except minus and decimal point)
+                if (!/^-?\d+(\.\d+)?$/.test(segment)) {
+                    hasError = true;
+                    if (/[a-zA-Z]/.test(segment)) {
+                        errorMessage = `⚠️ Warning: Position ${i + 1} contains letters - only numbers allowed`;
+                    } else if (/[^\d\.\-\+]/.test(segment)) {
+                        errorMessage = `⚠️ Warning: Position ${i + 1} has invalid characters`;
+                    } else {
+                        errorMessage = `⚠️ Warning: Position ${i + 1} is not a valid number`;
+                    }
+                    break;
+                }
+            }
+
+            // Show validation feedback only if there's an error
+            if (hasError) {
+                showStatus(errorMessage, 'error');
+            } else if (input.trim()) {
+                // Show ready status if input looks valid
+                const count = segments.filter(s => s.trim()).length;
+                showStatus(`✓ ${count} number(s) ready to sort`, 'ready');
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+
+        document.getElementById('speedSlider').addEventListener('input', function() {
+            document.getElementById('speedValue').textContent = this.value + 'x';
+        });
+
+        document.getElementById('arrayInput').addEventListener('input', function() {
+            validateInputRealTime();
+        });
+
+        document.getElementById('arrayInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startSorting();
+            }
+        });
+
+        // Initialize with default array
+        document.addEventListener('DOMContentLoaded', function() {
+            const parsed = parseInput();
+            if (parsed) {
+                array = [...parsed];
+                renderBars();
+            }
+        });
+    </script>
+</body>
+</html>
