@@ -7,7 +7,20 @@ def is_valid_email(email):
 def is_valid_phone(phone):
     return re.match(r"^01[0125][0-9]{8}$", phone)
 
+
+
+# fun first 
+
+# fun last 
+
+
+
+# 
+
+
 def register():
+
+
     print("******Register******")
     first_name = input("Enter your first name: ")
     last_name = input("Enter your last name: ")
