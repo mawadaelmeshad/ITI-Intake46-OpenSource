@@ -1,53 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library - All Books</title>
-    <!-- Tailwind CSS v3 via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
-</head>
-<body class="bg-gradient-to-br from-indigo-50 to-blue-100 min-h-screen text-slate-800">
-    <nav class="bg-white/70 backdrop-blur-md sticky top-0 z-50 border-b border-indigo-100">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{% url 'books.index' %}" class="text-2xl font-extrabold text-indigo-600 tracking-tight">ITI BOOKSTORE</a>
-            <div class="space-x-8 text-sm font-semibold uppercase tracking-wider text-slate-600">
-                <a href="{% url 'books.index' %}" class="text-indigo-600 border-b-2 border-indigo-600 pb-1">Books</a>
-                <a href="{% url 'authors.landing' %}" class="hover:text-indigo-600 transition-colors">Authors</a>
-                <a href="{% url 'aboutus.about' %}" class="hover:text-indigo-600 transition-colors">About</a>
-                <a href="{% url 'contactus.contact' %}" class="hover:text-indigo-600 transition-colors">Contact</a>
-            </div>
-        </div>
-    </nav>
+{% extends "base.html" %}
 
-    <div class="container mx-auto px-6 py-16">
-        <div class="flex items-center justify-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight text-center drop-shadow-sm">
-                Library Collection
-            </h1>
+{% block title %}Library Collection - ITI Bookstore{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto px-6 py-12">
+        <div class="mb-12 text-center">
+            <h1 class="text-5xl font-black text-slate-900 tracking-tighter mb-4">Our Collection</h1>
+            <p class="text-slate-500 text-lg">Explore the latest additions to our premium library.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {% for book in books %}
-            <div class="bg-white/80 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-xl border border-white/50 transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col h-full">
-                <div class="p-8 flex flex-col h-full">
-                    <h5 class="text-xl font-bold text-slate-800 mb-2 leading-tight">
-                        {{ book.title }}
-                    </h5>
-                    <p class="text-slate-500 font-medium mb-6 flex-grow">
-                        {{ book.author }}
-                    </p>
-                    <a href="{% url 'books.book_info' book.id %}" class="mt-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-indigo-500 text-white font-semibold py-2.5 px-6 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-center inline-block w-full sm:w-auto text-sm tracking-wide">
-                        View Details &rarr;
-                    </a>
+            <div class="bg-white rounded-3xl shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col group">
+                <div class="h-64 overflow-hidden relative">
+                    {% if book.image %}
+                        <img src="{{ book.image.url }}" alt="{{ book.title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    {% else %}
+                        <div class="w-full h-full bg-indigo-100 flex items-center justify-center text-indigo-300">
+                            <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                    {% endif %}
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-indigo-600 font-bold text-sm shadow-sm">
+                        ${{ book.price }}
+                    </div>
                 </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <h5 class="text-xl font-bold text-slate-800 mb-2 leading-tight group-hover:text-indigo-600 transition-colors">{{ book.title }}</h5>
+                    <p class="text-slate-500 text-sm mb-4 line-clamp-2">{{ book.brief }}</p>
+                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-50">
+                        <span class="text-xs font-medium text-slate-400 uppercase tracking-widest">{{ book.no_of_page }} Pages</span>
+                        <a href="{% url 'book_info' book.id %}" class="bg-slate-900 text-white p-2 rounded-full hover:bg-indigo-600 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-full py-20 text-center">
+                <p class="text-slate-400 text-lg italic">No books in the library.</p>
+                <a href="{% url 'book_create' %}" class="mt-4 inline-block text-indigo-600 font-bold underline decoration-2 underline-offset-4">Add your first book</a>
             </div>
             {% endfor %}
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

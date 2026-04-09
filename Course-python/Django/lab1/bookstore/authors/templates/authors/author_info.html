@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ author.name }} - ITI Bookstore{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto px-6 py-20 max-w-4xl">
+        <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100">
+            <div class="p-10 md:p-16">
+                <div class="flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-12 mb-12">
+                    <div class="w-32 h-32 bg-indigo-600 rounded-[2.5rem] flex items-center justify-center text-white text-5xl font-black shadow-2xl">
+                        {{ author.name|first }}
+                    </div>
+                    <div class="text-center md:text-left flex-1">
+                        <span class="inline-block bg-indigo-100 text-indigo-600 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-4">Author Profile</span>
+                        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-2">{{ author.name }}</h1>
+                        <p class="text-slate-400 font-bold text-lg mb-6">{{ author.email }}</p>
+                        
+                        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                            <div class="bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
+                                <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Gender</span>
+                                <span class="text-slate-700 font-bold uppercase">{{ author.get_gender_display }}</span>
+                            </div>
+                            <div class="bg-slate-50 px-6 py-3 rounded-2xl border border-slate-100">
+                                <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Books</span>
+                                <span class="text-slate-700 font-bold">{{ author.books.count }} Titles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-50 pt-10">
+                    <h3 class="text-xl font-black text-slate-900 mb-4 tracking-tight">Biography</h3>
+                    <p class="text-slate-500 text-lg leading-relaxed italic border-l-4 border-indigo-100 pl-8 mb-12">
+                        "{{ author.bio }}"
+                    </p>
+
+                    <h3 class="text-xl font-black text-slate-900 mb-6 tracking-tight">Books by {{ author.name }}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {% for book in author.books.all %}
+                        <a href="{% url 'book_info' book.id %}" class="bg-slate-50 hover:bg-white p-5 rounded-2xl border border-slate-100 hover:shadow-xl transition-all flex items-center space-x-4">
+                            <div class="w-12 h-16 bg-slate-200 rounded-lg flex-shrink-0"></div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">{{ book.title }}</h4>
+                                <span class="text-xs text-indigo-500 font-bold">${{ book.price }}</span>
+                            </div>
+                        </a>
+                        {% empty %}
+                        <p class="text-slate-400 italic">No books linked to this author yet.</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="flex gap-4 mt-16 pt-10 border-t border-slate-50">
+                        <a href="{% url 'authors.edit' author.pk %}" class="flex-1 bg-indigo-600 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:bg-indigo-700 transition-all text-center">Edit Profile</a>
+                        <a href="{% url 'authors.delete' author.pk %}" class="bg-rose-50 text-rose-600 font-bold py-4 px-8 rounded-2xl border border-rose-100 hover:bg-rose-100 transition-all text-center">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6&x^2p1g4(pf*7tpa^#vk6#e*cl87&$7hq)9&b9thy0l_pbxqu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,14 @@ INSTALLED_APPS = [
     'contactus.apps.ContactusConfig',
     'aboutus.apps.AboutusConfig',
 ]
+JAZZMIN_SETTINGS = {
+    "site_title": "Bookstore Admin",
+    "site_header": "Bookstore",
+    "site_brand": "Bookstore",
+    "welcome_sign": "Welcome to Bookstore Admin",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,3 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+

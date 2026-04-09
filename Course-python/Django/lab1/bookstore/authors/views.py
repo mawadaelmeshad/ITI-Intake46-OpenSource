@@ -1,10 +1,36 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Author
+from .forms import AuthorForm
 
-def landing(request):
-    authors = [
-        {'id': 1, 'name': 'F. Scott Fitzgerald', 'bio': 'Famous for classic novels such as The Great Gatsby.', 'books_count': 5},
-        {'id': 2, 'name': 'Harper Lee', 'bio': 'American novelist best known for her masterpiece To Kill a Mockingbird.', 'books_count': 2},
-        {'id': 3, 'name': 'George Orwell', 'bio': 'Renowned for his insightful political essays and novels like 1984.', 'books_count': 8},
-        {'id': 4, 'name': 'Maya Angelou', 'bio': 'Celebrated poet and memoirist known for I Know Why the Caged Bird Sings.', 'books_count': 12},
-    ]
-    return render(request, 'authors/landing.html', {'authors': authors})
+# READ ALL
+class AuthorListView(ListView):
+    model = Author
+    template_name = 'authors/landing.html'
+    context_object_name = 'authors'
+
+# READ ONE
+class AuthorDetailView(DetailView):
+    model = Author
+    template_name = 'authors/author_info.html'
+    context_object_name = 'author'
+
+# CREATE
+class AuthorCreateView(CreateView):
+    model = Author
+    form_class = AuthorForm
+    template_name = 'authors/author_form.html'
+    success_url = reverse_lazy('authors.landing')
+
+# UPDATE
+class AuthorUpdateView(UpdateView):
+    model = Author
+    form_class = AuthorForm
+    template_name = 'authors/author_form.html'
+    success_url = reverse_lazy('authors.landing')
+
+# DELETE
+class AuthorDeleteView(DeleteView):
+    model = Author
+    template_name = 'authors/author_confirm_delete.html'
+    success_url = reverse_lazy('authors.landing')

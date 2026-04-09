@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Book - ITI Bookstore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-20 flex items-center justify-center">
+    <div class="w-full max-w-md bg-white rounded-[2.5rem] shadow-2xl p-10 text-center border border-slate-100">
+        <div class="w-20 h-20 bg-rose-100 text-rose-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        <h1 class="text-3xl font-black text-slate-900 mb-4 tracking-tighter">Are you sure?</h1>
+        <p class="text-slate-500 mb-10 leading-relaxed">You are about to delete <span class="font-bold text-slate-800">"{{ book.title }}"</span>. This action cannot be undone.</p>
+        <form method="post" class="flex flex-col gap-4">
+            {% csrf_token %}
+            <button type="submit" class="bg-rose-600 text-white font-black py-4 px-8 rounded-2xl shadow-lg hover:bg-rose-700 transition-all transform hover:-translate-y-1">Yes, Delete Book</button>
+            <a href="{% url 'book_info' book.id %}" class="bg-slate-100 text-slate-600 font-bold py-4 px-8 rounded-2xl hover:bg-slate-200 transition-all">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
