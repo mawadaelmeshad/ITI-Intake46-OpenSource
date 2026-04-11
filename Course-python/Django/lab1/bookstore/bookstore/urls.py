@@ -23,9 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # apps
     path('books/', include('books.urls')),
-    path('aboutus/', include('aboutus.urls')),
-    path('contactus/', include('contactus.urls')),
     path('authors/', include('authors.urls')),
+    path('contactus/', include('contactus.urls')),
+    path('aboutus/', include('aboutus.urls')),
+    path('api/v1/', include('books.api.urls')),
 ]
 
 if settings.DEBUG:
