@@ -26,3 +26,19 @@
 /Course-Java/Lab6/Task1/nbproject/private/
 /Course-Java/Lab6/Task1/build/
 /Course-Java/Lab6/mavenproject1/target/
+
+# Global Ignores
+.env
+.env.*
+node_modules/
+vendor/
+venv/
+.venv/
+__pycache__/
+
+# IDEs
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI RAG Assistant | Premium Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <h1>RAG Assistant</h1>
+            </div>
+            <div class="status">
+                <span class="status-dot"></span> Online
+            </div>
+        </header>
+
+        <main id="chat-container">
+            <div class="message assistant">
+                <div class="avatar">AI</div>
+                <div class="bubble">
+                    Hello! I'm your RAG-powered assistant. How can I help you today?
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Type your question..." autocomplete="off">
+                <button type="submit" id="send-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
+                    </svg>
+                </button>
+            </form>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
