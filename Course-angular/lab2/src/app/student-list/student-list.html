@@ -1,0 +1,39 @@
+<div class="student-container">
+  <div class="student-header">
+    <h2>Students List</h2>
+    <button class="btn-add" (click)="showAddForm = !showAddForm">
+      {{ showAddForm ? 'Cancel' : '+ Add Student' }}
+    </button>
+  </div>
+
+  <app-student-add *ngIf="showAddForm" (onStudentAdd)="handleAdd($event)"></app-student-add>
+
+  <app-student-edit *ngIf="selectedForEdit" [studentToEdit]="selectedForEdit" (onStudentSave)="handleEdit($event)"></app-student-edit>
+
+  <app-student-details *ngIf="selectedForDetails" [student]="selectedForDetails"></app-student-details>
+
+  <table class="student-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of students">
+        <td>{{ s.id }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.age }}</td>
+        <td class="actions-cell">
+          <button class="btn-edit" (click)="editStudent(s)">Edit</button>
+          <button class="btn-details" (click)="viewDetails(s)">Details</button>
+        </td>
+      </tr>
+      <tr *ngIf="students.length === 0">
+        <td colspan="5" class="empty-state">No students found.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

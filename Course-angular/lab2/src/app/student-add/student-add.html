@@ -1,0 +1,12 @@
+<div class="form-card">
+  <h3>New Student</h3>
+  <div class="form-group">
+    <label for="studentName">Name</label>
+    <input id="studentName" type="text" [(ngModel)]="newStudent.name" placeholder="Enter name" />
+  </div>
+  <div class="form-group">
+    <label for="studentAge">Age</label>
+    <input id="studentAge" type="number" [(ngModel)]="newStudent.age" placeholder="Enter age" />
+  </div>
+  <button class="btn-submit" (click)="addStudent()">Add Student</button>
+</div>

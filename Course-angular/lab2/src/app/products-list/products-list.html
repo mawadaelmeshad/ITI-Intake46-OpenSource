@@ -1,0 +1,66 @@
+<div class="products-wrapper">
+
+  <!-- Filter & Total Price Bar -->
+  <div class="stats-bar">
+    <div class="filter-group">
+      <label for="catFilter">🗂️ Filter by Category</label>
+      <select id="catFilter" [(ngModel)]="selectedCatId">
+        <option [value]="0">All Categories</option>
+        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+      </select>
+    </div>
+    <div class="total-price-badge">
+      <span class="total-label">🛒 Total Price</span>
+      <span class="total-value">{{ totalPrice | currency }}</span>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="product-grid">
+    <div class="card" *ngFor="let product of filteredProducts">
+      <img [src]="product.imgUrl" [alt]="product.name" class="card-img">
+      <div class="card-content">
+        <h3 class="card-title">{{ product.name }}</h3>
+        <p class="card-price">{{ product.price | currency }}</p>
+
+        <p-rating
+          [ngModel]="4"
+          [readonly]="true"
+          [style]="{'margin-bottom': '10px'}">
+        </p-rating>
+
+        <p-tag
+          [style]="{'margin-bottom': '15px'}"
+          [value]="product.quantity > 0 ? 'In Stock: ' + product.quantity : 'Out of Stock'"
+          [severity]="product.quantity > 0 ? 'success' : 'danger'">
+        </p-tag>
+
+        <!-- Quantity Input -->
+        <div class="qty-group" *ngIf="product.quantity > 0">
+          <label [for]="'qty-' + product.id">Qty</label>
+          <input
+            [id]="'qty-' + product.id"
+            type="number"
+            [(ngModel)]="product.purchaseQty"
+            min="1"
+            [max]="product.quantity"
+            style="color:black !important;"
+            class="qty-input" />
+        </div>
+
+        <p-button
+          [disabled]="product.quantity === 0"
+          label="Buy Now"
+          icon="pi pi-shopping-cart"
+          (onClick)="buyProduct(product)"
+          [style]="{'width': '100%', 'margin-top': 'auto'}">
+        </p-button>
+      </div>
+    </div>
+
+    <div *ngIf="filteredProducts.length === 0" class="no-products">
+      No products in this category.
+    </div>
+  </div>
+
+</div>

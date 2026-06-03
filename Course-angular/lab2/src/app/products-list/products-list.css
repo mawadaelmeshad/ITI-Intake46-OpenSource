@@ -1,0 +1,183 @@
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.card-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0 0 10px;
+}
+
+.card-quantity {
+  font-size: 0.9rem;
+  color: #27ae60;
+  margin-bottom: 15px;
+}
+
+.card-quantity.out-of-stock {
+  color: #e74c3c;
+}
+
+.btn-buy {
+  margin-top: auto;
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.btn-buy:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.btn-buy:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* ===== New: Filter & Stats Bar ===== */
+.products-wrapper {
+  padding: 10px;
+}
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px 24px;
+  margin: 16px 20px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.filter-group select {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.filter-group select:focus {
+  border-color: #3498db;
+}
+
+.total-price-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.total-label {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.total-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #27ae60;
+}
+
+/* ===== Quantity Input ===== */
+.qty-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.qty-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.qty-input {
+  width: 70px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.qty-input:focus {
+  border-color: #3498db;
+}
+
+/* ===== No Products Message ===== */
+.no-products {
+  text-align: center;
+  color: #999;
+  font-size: 1.1rem;
+  padding: 40px;
+  grid-column: 1 / -1;
+}
+

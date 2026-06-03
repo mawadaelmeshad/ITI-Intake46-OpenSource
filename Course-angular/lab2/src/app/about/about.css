@@ -1,0 +1,64 @@
+.about-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.about-hero {
+  margin-bottom: 40px;
+}
+
+.about-avatar {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.about-hero h1 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.about-subtitle {
+  color: #6c7086;
+  font-size: 1.1rem;
+}
+
+.about-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.about-card {
+  background: #1e1e2e;
+  border-radius: 12px;
+  padding: 24px 20px;
+  width: 200px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.card-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.about-card h3 {
+  color: #1e1e2e;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.about-card p {
+  color: #6c7086;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}

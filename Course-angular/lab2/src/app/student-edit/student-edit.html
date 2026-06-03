@@ -1,0 +1,12 @@
+<div class="form-card" *ngIf="studentToEdit">
+  <h3>Edit Student</h3>
+  <div class="form-group">
+    <label for="editStudentName">Name</label>
+    <input id="editStudentName" type="text" [(ngModel)]="studentToEdit.name" placeholder="Enter name" />
+  </div>
+  <div class="form-group">
+    <label for="editStudentAge">Age</label>
+    <input id="editStudentAge" type="number" [(ngModel)]="studentToEdit.age" placeholder="Enter age" />
+  </div>
+  <button class="btn-submit" (click)="saveStudent()">Save Changes</button>
+</div>

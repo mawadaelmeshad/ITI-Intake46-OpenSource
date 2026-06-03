@@ -1,0 +1,33 @@
+const fs = require("fs");
+const studentData = [
+  {
+    id: 1,
+    name: "Alice Johnson",
+    age: 20,
+    course: "Computer Science",
+    grades: {
+      math: 90,
+      programming: 95,
+    },
+  },
+  {
+    id: 2,
+    name: "Bob Smith",
+    age: 22,
+    course: "Data Science",
+    grades: {
+      statistics: 88,
+      machine_learning: 92,
+    },
+  },
+  {
+    id: 3,
+    name: "Carol Williams",
+    age: 21,
+    course: "Web Development",
+    grades: {
+      html: 95,
+      javascript: 89,
+    },
+  },
+];
