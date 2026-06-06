@@ -1,0 +1,15 @@
+<div class="detail-page">
+  <div *ngIf="loading" class="detail-loading">
+    <div class="spinner"></div>
+    <span>Loading student details...</span>
+  </div>
+
+  <div *ngIf="errorMessage" class="detail-error">{{ errorMessage }}</div>
+
+  <div *ngIf="student && !loading" class="detail-card">
+    <h3>{{ student.name }}</h3>
+    <p><strong>Age:</strong> {{ student.age }}</p>
+    <p><strong>ID:</strong> {{ student.id }}</p>
+    <button class="btn-back" (click)="goBack()">Back to list</button>
+  </div>
+</div>

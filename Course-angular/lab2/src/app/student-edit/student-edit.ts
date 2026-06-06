@@ -5,6 +5,7 @@ import { IStudent } from '../istudent';
 
 @Component({
   selector: 'app-student-edit',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './student-edit.html',
   styleUrl: './student-edit.css',

@@ -79,6 +79,20 @@
 .btn-edit:hover {
   background-color: #d68910;
 }
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+.btn-delete:hover {
+  background-color: #c0392b;
+}
 
 .btn-details {
   background-color: #8e44ad;
@@ -101,4 +115,63 @@
   color: #bdc3c7;
   padding: 30px !important;
   font-size: 1.1rem;
+}
+
+.confirm-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.confirm-dialog {
+  width: min(460px, 100%);
+  background: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 18px;
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.35);
+  padding: 26px;
+  color: #e2e8f0;
+}
+
+.confirm-dialog h3 {
+  margin: 0 0 12px;
+}
+
+.confirm-dialog p {
+  margin: 0 0 18px;
+  line-height: 1.6;
+}
+
+.confirm-dialog .button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.list-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

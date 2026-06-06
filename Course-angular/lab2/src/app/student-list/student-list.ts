@@ -1,49 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { IStudent } from '../istudent';
 import { StudentAdd } from '../student-add/student-add';
 import { StudentEdit } from '../student-edit/student-edit';
-import { StudentDetails } from '../student-details/student-details';
-import { StudentService } from '../student';  // ← استوردنا الـ Service
+import { StudentService } from '../student';
 
 @Component({
   selector: 'app-student-list',
-  imports: [CommonModule, FormsModule, StudentAdd, StudentEdit, StudentDetails],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, StudentAdd, StudentEdit],
   templateUrl: './student-list.html',
   styleUrl: './student-list.css',
 })
-export class StudentList {
+export class StudentList implements OnInit {
 
+  students: IStudent[] = [];
   selectedForEdit: IStudent | null = null;
-  selectedForDetails: IStudent | null = null;
-  showAddForm: boolean = false;
+  showAddForm = false;
+  loading = false;
 
   constructor(private studentService: StudentService) {}
 
-  get students(): IStudent[] {
-    return this.studentService.getStudents();
+  ngOnInit() {
+    this.loadStudents();
   }
 
-  handleAdd(newStudent: IStudent) {
-    this.studentService.addStudent(newStudent);
-    this.showAddForm = false;
+  loadStudents() {
+    this.loading = true;
+    this.studentService.getStudents().subscribe({
+      next: (students) => {
+        this.students = students;
+        this.loading = false;
+      },
+      error: () => {
+        this.students = [];
+        this.loading = false;
+      },
+    });
+  }
+
+  handleAdd(newStudent: Omit<IStudent, 'id'>) {
+    this.studentService.addStudent(newStudent).subscribe(() => {
+      this.loadStudents();
+      this.showAddForm = false;
+    });
   }
 
   handleEdit(updatedStudent: IStudent) {
-    this.studentService.updateStudent(updatedStudent);
-    this.selectedForEdit = null;
+    this.studentService.updateStudent(updatedStudent).subscribe(() => {
+      this.selectedForEdit = null;
+      this.loadStudents();
+    });
   }
 
   editStudent(student: IStudent) {
     this.selectedForEdit = { ...student };
-    this.selectedForDetails = null;
-    this.showAddForm = false;
-  }
-
-  viewDetails(student: IStudent) {
-    this.selectedForDetails = student;
-    this.selectedForEdit = null;
     this.showAddForm = false;
   }
 }

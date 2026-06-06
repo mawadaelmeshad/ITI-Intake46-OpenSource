@@ -1,0 +1,19 @@
+<div class="delete-page">
+  <div *ngIf="loading" class="delete-loading">
+    <div class="spinner"></div>
+    <span>Loading student...</span>
+  </div>
+
+  <div *ngIf="errorMessage" class="delete-error">{{ errorMessage }}</div>
+
+  <div *ngIf="student && !loading" class="delete-card">
+    <h3>Delete Student</h3>
+    <p>Are you sure you want to delete <strong>{{ student.name }}</strong>?</p>
+    <p><strong>Age:</strong> {{ student.age }}</p>
+
+    <div class="button-group">
+      <button class="btn-delete" (click)="confirmDelete()">Yes, delete</button>
+      <button class="btn-cancel" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

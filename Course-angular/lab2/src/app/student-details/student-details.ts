@@ -4,6 +4,7 @@ import { IStudent } from '../istudent';
 
 @Component({
   selector: 'app-student-details',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './student-details.html',
   styleUrl: './student-details.css',

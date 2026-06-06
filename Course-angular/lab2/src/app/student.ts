@@ -1,29 +1,33 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IStudent } from './istudent';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StudentService {
+  private baseUrl = 'http://localhost:3000/students';
 
-  private students: IStudent[] = [
-    { id: 1, name: 'Ahmed', age: 20 },
-    { id: 2, name: 'Sara', age: 21 },
-  ];
+  constructor(private http: HttpClient) {}
 
-  getStudents(): IStudent[] {
-    return this.students;
+  getStudents(): Observable<IStudent[]> {
+    return this.http.get<IStudent[]>(this.baseUrl);
   }
 
-  addStudent(student: IStudent): void {
-    student.id = this.students.length + 1;
-    this.students.push(student);
+  getStudentById(id: number): Observable<IStudent> {
+    return this.http.get<IStudent>(`${this.baseUrl}/${id}`);
   }
 
-  updateStudent(updated: IStudent): void {
-    const index = this.students.findIndex(s => s.id === updated.id);
-    if (index !== -1) {
-      this.students[index] = updated;
-    }
+  addStudent(student: Omit<IStudent, 'id'>): Observable<IStudent> {
+    return this.http.post<IStudent>(this.baseUrl, student);
+  }
+
+  updateStudent(student: IStudent): Observable<IStudent> {
+    return this.http.put<IStudent>(`${this.baseUrl}/${student.id}`, student);
+  }
+
+  deleteStudent(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

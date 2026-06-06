@@ -10,9 +10,12 @@
 
   <app-student-edit *ngIf="selectedForEdit" [studentToEdit]="selectedForEdit" (onStudentSave)="handleEdit($event)"></app-student-edit>
 
-  <app-student-details *ngIf="selectedForDetails" [student]="selectedForDetails"></app-student-details>
+  <div *ngIf="loading" class="list-loading">
+    <div class="spinner"></div>
+    <span>Loading students...</span>
+  </div>
 
-  <table class="student-table">
+  <table class="student-table" *ngIf="!loading">
     <thead>
       <tr>
         <th>#</th>
@@ -28,7 +31,8 @@
         <td>{{ s.age }}</td>
         <td class="actions-cell">
           <button class="btn-edit" (click)="editStudent(s)">Edit</button>
-          <button class="btn-details" (click)="viewDetails(s)">Details</button>
+          <button class="btn-details" [routerLink]="['/home', s.id]">Details</button>
+          <button class="btn-delete" [routerLink]="['/home/delete', s.id]">Delete</button>
         </td>
       </tr>
       <tr *ngIf="students.length === 0">
@@ -36,4 +40,6 @@
       </tr>
     </tbody>
   </table>
+
+  <router-outlet></router-outlet>
 </div>
