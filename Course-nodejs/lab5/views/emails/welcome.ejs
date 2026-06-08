@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Our Platform</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    .container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .header { background: #4f46e5; padding: 30px; text-align: center; }
+    .header h1 { color: #fff; margin: 0; font-size: 24px; }
+    .body { padding: 30px; color: #333; }
+    .body p { line-height: 1.6; font-size: 16px; }
+    .btn { display: inline-block; margin-top: 20px; padding: 12px 28px; background: #4f46e5; color: #fff; text-decoration: none; border-radius: 5px; font-size: 15px; }
+    .footer { text-align: center; padding: 20px; font-size: 12px; color: #999; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Welcome Aboard! 🎉</h1>
+    </div>
+    <div class="body">
+      <p>Hi <strong><%= name %></strong>,</p>
+      <p>
+        We're thrilled to have you join our platform. Your account has been created
+        successfully and you're all set to get started.
+      </p>
+      <p>
+        Whenever you want to sign in, just click the button below:
+      </p>
+      <a href="http://localhost:3000/api/users/login" class="btn">Sign In</a>
+      <p style="margin-top: 30px;">
+        If you have any questions, feel free to reach out to our support team.
+      </p>
+      <p>Cheers,<br/>The Platform Team</p>
+    </div>
+    <div class="footer">
+      &copy; <%= new Date().getFullYear() %> Our Platform. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
