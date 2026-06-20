@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polling Demonstration</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+            --short-color: #10b981;
+            --long-color: #8b5cf6;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .header-card {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        h1, h2 {
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+        }
+
+        p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-short { background-color: var(--short-color); }
+        .btn-short:hover { background-color: #059669; }
+        
+        .btn-long { background-color: var(--long-color); }
+        .btn-long:hover { background-color: #7c3aed; }
+
+        .btn-stop { background-color: #ef4444; }
+        .btn-stop:hover { background-color: #dc2626; }
+
+        .message-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-color);
+        }
+
+        .message-item {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .message-item:last-child {
+            border-bottom: none;
+        }
+
+        .timestamp {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-inactive { background-color: #334155; color: #cbd5e1; }
+        .status-active-short { background-color: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .status-active-long { background-color: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+
+        .request-counter {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card header-card">
+        <h1>Push & Pull Technologies</h1>
+        <p>Demonstration of Short Polling and Long Polling techniques. Open your browser's Developer Tools (Network tab) to observe the requests.</p>
+        
+        <div class="form-group">
+            <input type="text" id="messageInput" placeholder="Type a message to send to the server..." autocomplete="off">
+            <button onclick="sendMessage()">Send Message</button>
+        </div>
+    </div>
+
+    <!-- Short Polling Card -->
+    <div class="card">
+        <h2 style="color: var(--short-color)">Short Polling</h2>
+        <span id="shortStatus" class="status-badge status-inactive">Inactive</span>
+        
+        <div class="controls">
+            <button class="btn-short" onclick="startShortPolling()">Start</button>
+            <button class="btn-stop" onclick="stopShortPolling()">Stop</button>
+        </div>
+        
+        <ul id="shortMessageList" class="message-list"></ul>
+        <div class="request-counter">Total Requests: <span id="shortRequestCount">0</span></div>
+    </div>
+
+    <!-- Long Polling Card -->
+    <div class="card">
+        <h2 style="color: var(--long-color)">Long Polling</h2>
+        <span id="longStatus" class="status-badge status-inactive">Inactive</span>
+        
+        <div class="controls">
+            <button class="btn-long" onclick="startLongPolling()">Start</button>
+            <button class="btn-stop" onclick="stopLongPolling()">Stop</button>
+        </div>
+        
+        <ul id="longMessageList" class="message-list"></ul>
+        <div class="request-counter">Total Requests: <span id="longRequestCount">0</span></div>
+    </div>
+</div>
+
+<script>
+    // --- Message Sending Logic ---
+    async function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const text = input.value.trim();
+        if (!text) return;
+
+        try {
+            await fetch('/message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+            input.value = '';
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    }
+
+    // Allow Enter key to submit
+    document.getElementById('messageInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    // --- Utility function to add messages to UI ---
+    function appendMessages(messages, listId) {
+        const list = document.getElementById(listId);
+        messages.forEach(msg => {
+            const li = document.createElement('li');
+            li.className = 'message-item';
+            const time = new Date(msg.timestamp).toLocaleTimeString();
+            li.innerHTML = `<span class="timestamp">${time} (ID: ${msg.id})</span>${msg.text}`;
+            list.appendChild(li);
+        });
+        // Scroll to bottom
+        list.scrollTop = list.scrollHeight;
+    }
+
+    // --- Short Polling Logic ---
+    let shortPollingInterval = null;
+    let shortLastId = 0;
+    let shortReqCount = 0;
+
+    function startShortPolling() {
+        if (shortPollingInterval) return; // Already running
+        
+        document.getElementById('shortStatus').className = 'status-badge status-active-short';
+        document.getElementById('shortStatus').textContent = 'Active (Every 3s)';
+        
+        // Polling function
+        const poll = async () => {
+            try {
+                shortReqCount++;
+                document.getElementById('shortRequestCount').textContent = shortReqCount;
+                
+                const response = await fetch(`/short-poll?lastId=${shortLastId}`);
+                const data = await response.json();
+                
+                if (data.length > 0) {
+                    shortLastId = data[data.length - 1].id;
+                    appendMessages(data, 'shortMessageList');
+                }
+            } catch (error) {
+                console.error('Short poll error:', error);
+            }
+        };
+
+        // Run immediately, then every 3 seconds
+        poll();
+        shortPollingInterval = setInterval(poll, 3000);
+    }
+
+    function stopShortPolling() {
+        if (shortPollingInterval) {
+            clearInterval(shortPollingInterval);
+            shortPollingInterval = null;
+            document.getElementById('shortStatus').className = 'status-badge status-inactive';
+            document.getElementById('shortStatus').textContent = 'Inactive';
+        }
+    }
+
+    // --- Long Polling Logic ---
+    let longPollingActive = false;
+    let longLastId = 0;
+    let longReqCount = 0;
+
+    async function startLongPolling() {
+        if (longPollingActive) return;
+        longPollingActive = true;
+        
+        document.getElementById('longStatus').className = 'status-badge status-active-long';
+        document.getElementById('longStatus').textContent = 'Active (Waiting...)';
+
+        const poll = async () => {
+            if (!longPollingActive) return;
+
+            try {
+                longReqCount++;
+                document.getElementById('longRequestCount').textContent = longReqCount;
+
+                const response = await fetch(`/long-poll?lastId=${longLastId}`);
+                
+                // If stopped during the fetch, ignore results
+                if (!longPollingActive) return;
+
+                if (response.status === 200) {
+                    const data = await response.json();
+                    if (data.length > 0) {
+                        longLastId = data[data.length - 1].id;
+                        appendMessages(data, 'longMessageList');
+                    }
+                }
+            } catch (error) {
+                console.error('Long poll error:', error);
+                // Wait a bit before retrying on error so we don't spam
+                await new Promise(r => setTimeout(r, 2000));
+            }
+
+            // Immediately poll again!
+            if (longPollingActive) {
+                poll();
+            }
+        };
+
+        poll();
+    }
+
+    function stopLongPolling() {
+        longPollingActive = false;
+        document.getElementById('longStatus').className = 'status-badge status-inactive';
+        document.getElementById('longStatus').textContent = 'Inactive';
+    }
+</script>
+
+</body>
+</html>
