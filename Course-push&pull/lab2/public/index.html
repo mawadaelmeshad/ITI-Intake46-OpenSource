@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Clone</title>
+    <!-- Link to our beautiful CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar (Just for visuals to look like WhatsApp) -->
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <div class="avatar my-avatar"></div>
+                <div class="header-icons">💬 ⚙️</div>
+            </header>
+            <div class="search-bar">
+                <input type="text" placeholder="Search or start new chat">
+            </div>
+            <div class="chat-list">
+                <div class="chat-item active">
+                    <div class="avatar group-avatar"></div>
+                    <div class="chat-info">
+                        <h3>Lab 2 Chat</h3>
+                        <p>Welcome to Socket.io!</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <header class="chat-header">
+                <div class="chat-header-info">
+                    <div class="avatar group-avatar"></div>
+                    <div>
+                        <h2>Lab 2 Chat</h2>
+                        <p class="status">You and others</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- This is where all the messages will appear -->
+            <div class="messages-container" id="messages-container">
+                <div class="message incoming">
+                    <span class="sender-id">System</span>
+                    <p>Welcome to the WhatsApp Clone! Send a message below.</p>
+                    <span class="time">Just now</span>
+                </div>
+            </div>
+
+            <!-- The input box at the bottom -->
+            <footer class="chat-footer">
+                <form id="chat-form">
+                    <button type="button" class="icon-btn">😊</button>
+                    <input type="text" id="message-input" placeholder="Type a message" autocomplete="off" required>
+                    <button type="submit" class="send-btn">Send</button>
+                </form>
+            </footer>
+        </main>
+    </div>
+
+    <!-- 1. Include the Socket.io library (provided automatically by the server) -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- 2. Include our custom client logic -->
+    <script src="client.js"></script>
+</body>
+</html>
