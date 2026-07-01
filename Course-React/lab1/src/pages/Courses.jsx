@@ -25,7 +25,7 @@ function Courses() {
 useEffect(() => {
   const timer = setTimeout(() => {
     console.log(`Current search term: ${searchTerm}`);
-  }, 10000);
+  }, 4000);
 
   return () => clearTimeout(timer);
 }, [searchTerm]);
